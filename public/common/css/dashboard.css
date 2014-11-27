@@ -1,0 +1,89 @@
+#header
+{
+    height: 50px;
+
+    background-color: #009dc6 ;
+}
+#header a
+{
+    margin: 5px 20px;
+
+    color: #fff;
+}
+#header a.dropdown-toggle
+{
+    margin: 5px 20px;
+}
+#header ul.dropdown-menu li > a
+{
+    color: #009dc6;
+}
+
+#footer
+{
+    background-color: #009dc6;
+}
+#footer p
+{
+    text-align: center;
+
+    color: #fff;
+}
+
+#main
+{
+    height: 600px;
+
+    background-color: #ccc;
+}
+
+.package
+{
+    border: solid 1px ;
+    background-color: #fff;
+}
+
+a.add-btn
+{
+    /* パッケージ追加ボタン */
+    display: block;
+
+    width: 180px;
+    padding: 10px 0;
+
+    text-align: center;
+
+    color: #fff;
+    border-radius: 4px;
+    background: #009dc6;
+}
+.content_header
+{
+    height: 50px;
+}
+.packageicon
+{
+    text-align: center;
+}
+.packageicon img
+{
+    width: 150px;
+    height: 150px;
+}
+.tags
+{
+    height: 40px;
+}
+.tags li
+{
+    float: left;
+
+    margin-left: 20px;
+
+    list-style-type: none;
+}
+.links img
+{
+    width: 40px;
+    height: 40px;
+}
