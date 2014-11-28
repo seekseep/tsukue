@@ -39,6 +39,7 @@
 
 .package
 {
+    margin:20px,0;
     border: solid 1px ;
     background-color: #fff;
 }
@@ -61,19 +62,21 @@ a.add-btn
 {
     height: 50px;
 }
-.packageicon
+.package_icon
 {
     text-align: center;
 }
-.packageicon img
+.package_icon img
 {
     width: 150px;
     height: 150px;
 }
 .tags
 {
-    height: 40px;
+    margin-top: 10px;
+    height: 20px;
 }
+
 .tags li
 {
     float: left;
@@ -84,6 +87,10 @@ a.add-btn
     font-style: bold;
 }
 
+.links
+{
+    margin-top:5px;
+}
 .links img
 {
     width: 40px;
