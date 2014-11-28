@@ -1,2 +1,5 @@
-<title>CREATE | TSUKUE</title>
-<h1>CREATE | TSUKUE</h1>
+<?php include_once '../common/php/_head.php'; ?>
+<?php include_once '../common/php/_header.php'; ?>
+<?php include_once '../common/php/_dashboard.php'; ?>
+<?php include_once '../common/php/_footer.php'; ?>
+<?php include_once '../common/php/_foot.php'; ?>
