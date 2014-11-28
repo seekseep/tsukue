@@ -81,7 +81,9 @@ a.add-btn
     margin-left: 20px;
 
     list-style-type: none;
+    font-style: bold;
 }
+
 .links img
 {
     width: 40px;
