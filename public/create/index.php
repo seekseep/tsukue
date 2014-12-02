@@ -1,6 +1,6 @@
-<?php include_once '../common/php/_head.php'; ?>
+<?php include_once 'common/php/_head.php'; ?>
+<?php include_once 'common/php/_header.php'; ?>
 
-<?php include_once '../common/php/_create_header.php'; ?>
 <div class="container">
 
 	<div id="top_header_1" class="row">
@@ -26,5 +26,6 @@
 	</div>
 
 </div>
-<?php include_once '../common/php/_create_footer.php'; ?>
-<?php include_once '../common/php/_foot.php'; ?>
+<?php include_once 'common/php/_footer.php'; ?>
+
+<?php include_once 'common/php/_foot.php'; ?>
