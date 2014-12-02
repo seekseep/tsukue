@@ -107,3 +107,16 @@ a.edit_btn{
     width: 40px;
     height: 40px;
 }
+
+#top_header_1
+{
+    padding:8em;
+}
+#top_header_2
+{
+    padding:0em;
+}
+#top_header_3
+{
+    padding:8em;
+}
