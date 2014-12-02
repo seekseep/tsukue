@@ -69,6 +69,11 @@ a.add_btn
     width: 150px;
     height: 150px;
 }
+.package_name,
+.package_info{
+    margin-top: 5px;
+
+}
 a.edit_btn{
     display: block;
 

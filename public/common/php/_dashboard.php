@@ -11,11 +11,12 @@
 		<div class="col-md-9 row"> 					<!-- Package右側 -->
 			<div class="row">
 				<div class="col-md-1"></div>
-				<div class="col-md-4">
-					<a class="package_name">パッケージ名</a>
+				<div class="col-md-3 package_name">
+					<a>パッケージ名</a>
 				</div>
 				<div class="col-md-1"></div>
 				<div class="col-md-3 package_info"><a>2014年11月20日</a></div>
+				<div class="col-md-1"></div>
 				<div class="col-md-3">
 					<a class="edit_btn">パッケージ編集</a>
 				</div>
