@@ -1,6 +1,7 @@
 <?php include_once 'common/php/_head.php'; ?>
 <?php include_once 'common/php/_header.php'; ?>
 
+
 <div class="container">
 
 	<div id="top_header_1" class="row">
@@ -12,7 +13,7 @@
 	<div id="top_header_2" class="row">
 		<div class="col-sm-8 col-sm-offset-2">
 			<h1 class="text-center">
-				<button type="button" class="btn btn-primary btn-lg "> パッケージを投稿する</button>
+				<button type="button" class="btn btn-primary btn-lg " onclick="location.href='login.php'"> パッケージを投稿する</button>
 			</h1>
 		</div>
 	</div>
@@ -24,7 +25,6 @@
 			</h1>
 		</div>
 	</div>
-
 </div>
 <?php include_once 'common/php/_footer.php'; ?>
 

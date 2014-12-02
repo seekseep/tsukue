@@ -124,8 +124,9 @@ a.edit_btn{
 #top_header_3
 {
     padding:8em;
-<<<<<<< HEAD
 }
-=======
+
+
+#login_form button{
+    float: right;
 }
->>>>>>> FETCH_HEAD
