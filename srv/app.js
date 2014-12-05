@@ -1,4 +1,5 @@
 // app.js
+<<<<<<< HEAD
 var app = require('http').createServer(handler),
 io = require('socket.io').listen(app),
 fs = require('fs');
@@ -82,3 +83,7 @@ io.on('connection', function(socket){
 
 });// end: io.on('connection')
 console.log("Hello world!")
+=======
+
+console.log("this is app.js")
+>>>>>>> 4a04c157286f8994e672621e85746a92221eead4

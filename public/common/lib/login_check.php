@@ -8,7 +8,7 @@
 
 	session_start();
 
-	include_once 'common/lib/api/tukue_creator_functions.php';
+	include_once 'api/tukue_creator_functions.php';
 
 	$input_username = $_POST['name'];
 
