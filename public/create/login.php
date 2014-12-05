@@ -12,7 +12,7 @@
 			</ul>
 			<div id="myTabContent" class="tab-content">
 				<div class="tab-pane active in" id="login">
-					<form class="form-horizontal" action='' method="POST">
+					<form class="form-horizontal" action='/public/common/lib/login_check.php' method="POST">
 						<fieldset>
 							<div id="legend">
 								<legend class="">Login</legend>
@@ -20,18 +20,16 @@
 							<div class="control-group">
 								<label class="control-label" for="username">Username</label>
 								<div class="controls">
-									<input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+									<input type="text" id="username" name="name" placeholder="ユーザー名" class="input-xlarge">
 								</div>
 							</div>
 
 							<div class="control-group">
-								<!-- Password-->
 								<label class="control-label" for="password">Password</label>
 								<div class="controls">
-									<input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+									<input type="password" id="password" name="pass" placeholder="パスワード" class="input-xlarge">
 								</div>
 							</div>
-
 
 							<div class="control-group">
 								<div class="controls">
