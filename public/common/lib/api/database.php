@@ -1,9 +1,9 @@
 <?php
 
-define("dbServer", "localhost");
+define("dbServer", "dev.kinako.asia:3307");
 define("dbUser", "root");
 define("dbPass", "");
-define("dbName", "tukue");
+define("dbName", "trump_test");
 
 $mysqli = new mysqli(dbServer, dbUser, dbPass, dbName);
 
