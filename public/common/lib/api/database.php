@@ -1,6 +1,6 @@
 <?php
 
-define("dbServer", "dev.kinako.asia:3307");
+define("dbServer", "dev.kinako.asia");
 define("dbUser", "root");
 define("dbPass", "");
 define("dbName", "trump_test");
