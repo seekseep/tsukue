@@ -31,16 +31,14 @@
 				<div class="col-md-5">
 					<label for="package_name" class="col-md-6 control-label">場の背景</label>
 					<div class="col-md-6">
-						<a href="/account" aria-label="Change your avatar" class="vcard-avatar tooltipped tooltipped-s">
-						<img alt="" class="avatar" data-user="9942526" height="30" src="https://avatars3.githubusercontent.com/u/9942526?v=3&amp;s=460" width="200"></a>
+						<img src="..." class="img-responsive" alt="Responsive image"height="30"width="200">
 					</div>
 				</div>
 
 				<div class="col-md-5">
 					<label for="package_name" class="col-md-6 control-label">手札の背景</label>
 					<div class="col-md-6">
-						<a href="/account" aria-label="Change your avatar" class="vcard-avatar tooltipped tooltipped-s">
-						<img alt="" class="avatar" data-user="9942526" height="30" src="https://avatars3.githubusercontent.com/u/9942526?v=3&amp;s=460" width="200"></a>
+						<img src="..." class="img-responsive" alt="Responsive image"height="30"width="200">
 					</div>
 				</div>
 
@@ -50,9 +48,7 @@
 
 		<div class="col-md-3">
 			<div class="form-group">
-				<a href="/account" aria-label="Change your avatar" class="vcard-avatar tooltipped tooltipped-s">
-				<img alt="" class="avatar" data-user="9942526" height="150" src="https://avatars3.githubusercontent.com/u/9942526?v=3&amp;s=460" width="150">
-				</a>
+				<img src="..." class="img-responsive" alt="Responsive image"height="150"width="150">
 			</div>
 		</div>
 
