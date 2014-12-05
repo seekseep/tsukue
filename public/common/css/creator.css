@@ -1,0 +1,131 @@
+#header
+{
+    background-color: #009dc6 ;
+}
+#header a
+{
+    margin: 5px 20px;
+
+    color: #fff;
+}
+#header a.dropdown-toggle
+{
+    margin: 5px 20px;
+}
+#header ul.dropdown-menu li > a
+{
+    color: #009dc6;
+}
+
+#footer
+{
+    background-color: #009dc6;
+}
+#footer p
+{
+    text-align: center;
+
+    color: #fff;
+}
+
+#main
+{
+    height: 600px;
+
+    background-color: #ccc;
+}
+
+.package
+{
+    margin-top:20px;
+    border: solid 1px ;
+    background-color: #fff;
+}
+
+a.add_btn
+{
+    /* パッケージ追加ボタン */
+    display: block;
+
+    width: 180px;
+    padding: 10px 0;
+
+    text-align: center;
+
+    color: #fff;
+    border-radius: 4px;
+    background: #009dc6;
+}
+.content_header
+{
+    height: 40px;
+}
+.package_icon
+{
+    text-align: center;
+}
+.package_icon img
+{
+    width: 150px;
+    height: 150px;
+}
+.package_name,
+.package_info{
+    margin-top: 5px;
+
+}
+a.edit_btn{
+    display: block;
+
+    width: 120px;
+    padding: 5px 0;
+
+    text-align: center;
+
+    color: #009dc6;
+    border: 2px;  
+    border-radius: 4px #009dc6;
+    background: #fff;  
+}
+.tags
+{
+    margin-top: 10px;
+    height: 20px;
+}
+
+.tags li
+{
+    float: left;
+
+    margin-left: 20px;
+
+    list-style-type: none;
+    font-style: bold;
+}
+
+.links
+{
+    margin-top:5px;
+}
+.links img
+{
+    width: 40px;
+    height: 40px;
+}
+
+#top_header_1
+{
+    padding:8em;
+}
+#top_header_2
+{
+    padding:0em;
+}
+#top_header_3
+{
+    padding:8em;
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> FETCH_HEAD
