@@ -3,7 +3,7 @@
 <div id="main" class="container">
 	<div class="row" >
 		<div class="col-sm-3 col-sm-offset-9 content_header">
-			<a class="add_btn">パッケージの追加</a>
+			<a class="add_btn" href="add.php">パッケージの追加</a>
 		</div>
 	</div>
 	<div class="package col-sm-offset-1 col-sm-10 col-sm-offset-1 row" >	<!-- パッケージ全体 -->
