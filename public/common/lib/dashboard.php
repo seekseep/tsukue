@@ -11,15 +11,13 @@
 
 	session_start();
 
-	var_dump($_SESSION['username']);
-
 	$username = $_SESSION['username'];
 
 	if($username != null) {
 		echo '<p>' . $username . 'さんようこそ</p>';
 		echo '<a href="logout.php">ログアウト</a>';
 	}else {
-		echo 'ログインしてください.';
+		echo 'ログインしてください<br />';
 	}
 ?>
 
