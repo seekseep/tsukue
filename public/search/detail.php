@@ -1,21 +1,14 @@
 <?php 
-	$title ="LIST";
+	$title ="detail";
 	include_once 'common/php/_head.php';
  ?>
 
 <section class="container">
 
 
-<h1>list</h1>
-
-<form class="well form-search" action="./list.php" method="GET">
-	<input type="text" class="input-medium search-query" name="keyword">
-	<button type="submit" class="btn"> 検 索 </button>
-</form>
-
-<?php 
-$results = array(
-		array(
+	<?php if (isset($_GET['id'])) : ?>
+	<?php
+		$package = array(
 			"id" => "p_00001",
 			"name" => "パッケージ1",
 			"author" => "大谷",
@@ -68,242 +61,139 @@ $results = array(
 							"index" => "0",
 							"front" => "sample_front.png",
 							"back" => "sample_back.png",
-						)										
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						),
+					array(
+							"index" => "0",
+							"front" => "sample_front.png",
+							"back" => "sample_back.png",
+						)									
 				)
-		),
+		);
+	?>	
+	
+	<h1>detail</h1>
 
-		array(
-			"id" => "p_00001",
-			"name" => "パッケージ1",
-			"author" => "大谷",
-			"time" => "2025/12/31",
-			"tag" => array(
-				"トランプ","シンプル","ゲーム","オリジナル"
+	<form class="well form-search" action="./list.php" method="GET">
+	<input type="text" class="input-medium search-query" name="keyword">
+	<button type="submit" class="btn"> 検 索 </button>
+	</form>
 
-				),
-			"description" => "このパッケージは大谷の熱いゲームへの思いがたくさん込められています。スマートフォンの枠に収まるようにがんばりました。",
-			"image" => "numakuro.png",
-			"hand" => "numakuro.png",
-			"field" => "numakuro.png",
-			"cards" => array(
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						)										
-				)
-		),
-		array(
-			"id" => "p_00001",
-			"name" => "パッケージ1",
-			"author" => "大谷",
-			"time" => "2025/12/31",
-			"tag" => array(
-				"トランプ","シンプル","ゲーム","オリジナル"
-
-				),
-			"description" => "このパッケージは大谷の熱いゲームへの思いがたくさん込められています。スマートフォンの枠に収まるようにがんばりました。",
-			"image" => "numakuro.png",
-			"hand" => "numakuro.png",
-			"field" => "numakuro.png",
-			"cards" => array(
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						)										
-				)
-		),
-		array(
-			"id" => "p_00001",
-			"name" => "パッケージ1",
-			"author" => "大谷",
-			"time" => "2025/12/31",
-			"tag" => array(
-				"トランプ","シンプル","ゲーム","オリジナル"
-
-				),
-			"description" => "このパッケージは大谷の熱いゲームへの思いがたくさん込められています。スマートフォンの枠に収まるようにがんばりました。",
-			"image" => "numakuro.png",
-			"hand" => "numakuro.png",
-			"field" => "numakuro.png",
-			"cards" => array(
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						)										
-				)
-		),
-		array(
-			"id" => "p_00001",
-			"name" => "パッケージ1",
-			"author" => "大谷",
-			"time" => "2025/12/31",
-			"tag" => array(
-
-				),
-			"description" => "このパッケージは大谷の熱いゲームへの思いがたくさん込められています。スマートフォンの枠に収まるようにがんばりました。",
-			"image" => "numakuro.png",
-			"hand" => "numakuro.png",
-			"field" => "numakuro.png",
-			"cards" => array(
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						),
-					array(
-							"index" => "0",
-							"front" => "sample_front.png",
-							"back" => "sample_back.png",
-						)										
-				)
-		),
-		
-
-
-
-						
-	);
-
- ?>
-<?php foreach ($results as $key => $package) : ?>
+	<!--受け取ったデータから値の取出し-->
 	<?php 
 		$package_id = $package['id'];
 		$package_name = $package['name'];
@@ -317,7 +207,6 @@ $results = array(
 		$package_background_field = $package['field'];
 	?>
 	
-
 	<div class="panel panel-default">
 		<div class="panel-content">
 			<div class="row">
@@ -330,38 +219,39 @@ $results = array(
 
 				<div class="col-sm-9">
 					<div class="row">
-					    <div class="col-sm-6" >
+					    <div class="col-sm-12" >
 					    	<div>
+					    		cards :
 					    		<ul class="list-inline">
-					    			<!--５回実行したらbreakする-->
-					    			<?php $count = 0; ?>
 						    	   	<?php foreach ($package_cards as $key => $cards) :?>
-										<?php if ($count>=5): ?>
-											<?php break; ?>
-										<?php else:?>
-										<li><img src="common/image/<?php echo $cards['front']; ?>" height="25" width="25" alt=""></li>
-										<li><img src="common/image/<?php echo $cards['back']; ?>"  height="25" width="25" alt=""></li>
-										<?php $count++; ?>
-										<?php endif ?>
+
+										<li><img src="common/image/<?php echo $cards['front']; ?>" height="100" width="100" alt=""></li>
+										<li><img src="common/image/<?php echo $cards['back']; ?>"  height="100" width="100" alt=""></li>
+
 									<?php endforeach; ?>	
 						    	</ul>
 						    </div>
 						  
 					    </div>
+					</div>
 
-					    <div class="col-sm-6" >
+					<div class="row">
+					    <div class="col-sm-12" >
+					    	background images - hand &amp; field :
 					    	<ul class="list-inline">
-					    		<li><img src="common/image/<?php echo $package_background_hand; ?>" height="50" width="50" alt=""></li>
-					    		<li><img src="common/image/<?php echo $package_background_field; ?>" height="50" width="50" alt=""></li>
+					    		<li><img src="common/image/<?php echo $package_background_hand; ?>" height="100" width="100" alt=""></li>
+					    		<li><img src="common/image/<?php echo $package_background_field; ?>" height="100" width="100" alt=""></li>
 					    	</ul>
-					    </div>
+					    </div>   
+					</div>
 
-						<div class="row">
+					<div class="row">
 							<div class="col-sm-12" >
+								description :
 								<p><?php echo $package_description; ?></p>
 							</div>
-						</div>    
 					</div>
+
 				</div>
 
 				
@@ -376,21 +266,13 @@ $results = array(
 					<?php if(empty($package_tag) ) :?>
 						No tags.
 					<?php else:?>
-						<!--５個まで表示 ５回実行したらbreakする-->
-				    	<?php $count = 0; ?>
+
 						<?php foreach ($package_tag as $key => $tag) :?>
-									<?php if ($count>=5): ?>
-										<?php break; ?>
-									<?php else:?>
-										<span class="label label-success"><?php echo $tag; ?></span>
-										<?php $count++; ?>
-									<?php endif ?>
+
+							<span class="label label-success"><?php echo $tag; ?></span>
+
 						<?php endforeach; ?>
 
-						<?php if(count($package_tag) >= 6) :?>
-							<!--省略を示す-->
-							and more....
-						<?php endif ?>
 					<?php endif ?>
 				</div>
 				<div class="col-sm-2">
@@ -410,6 +292,7 @@ $results = array(
 					        <h4 class="modal-title" id="myModalLabel">QRコード</h4>
 					      </div>
 					      <div class="modal-body">
+					      	<!--QR生成につかうURLを指定-->
 					        <p><img src="https://chart.googleapis.com/chart?cht=qr&chs=157x157&chco=DC143C&chl=http://localhost:8000/play.php?pid=<?php echo "$package_id"; ?>" alt=""></p>
 					      </div>
 					      <div class="modal-footer">
@@ -422,15 +305,25 @@ $results = array(
 			</div><!--row end-->
 		</div>
 	</div>
+	
+	<p><a href="#">
+		<button type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span> Back to top
+		</button>
+	</a></p>
 
-<p><a href="#">
-	<button type="button" class="btn btn-default">
-		<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span> Back to top
-	</button>
-</a></p>
+	<?php else: ?>
+		<html>
+			<head>
+				<meta http-equiv="refresh" content="0;URL=./index.php">
+			</head>
+		</html>
+	<?php endif; ?>
 
-<?php endforeach; ?>
+
 </section>
+		
+
 
 <?php 
 	include_once 'common/php/_foot.php';
