@@ -41,6 +41,15 @@
 							<div id="legend">
 								<legend class="">Register</legend>
 							</div>
+
+								<div class="control-group">
+									<label class="control-label" for="user_id">表示名</label>
+									<div class="controls">
+										<input type="text" id="username" name="name" placeholder="表示名" class="input-xlarge">
+									</div>
+								</div>
+
+
 							<div class="control-group">
 								<label class="control-label" for="user_id">UserID</label>
 								<div class="controls">
