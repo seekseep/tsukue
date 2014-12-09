@@ -63,7 +63,12 @@
 									<input type="password" id="password" name="pass" placeholder="パスワード" class="input-xlarge">
 								</div>
 							</div>
-
+							<div class="control-group">
+								<label class="control-label" for="">表示名</label>
+								<div class="controls">
+									<input type="text" id="name_view" name="name_view" placeholder="まーくん" class="input-xlarge">
+								</div>
+							</div>
 
 							<div class="control-group">
 								<div class="controls">
