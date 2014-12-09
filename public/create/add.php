@@ -3,14 +3,13 @@
 
 <div id="main" class="container">
 	<form class="form-horizontal" role="form">
-		<div class="col-md-9">
+		<div class="col-md-9">			<!-- パッケージ画像の左 -->	
 			<div class="form-group">
 				<label for="package_name" class="col-md-3 control-label">パッケージ名</label>
 				<div class="col-md-6">
 					<input type="text" class="form-control" id="package_name" placeholder="パッケージ名を入力してください">
 				</div>
-			</div>
-
+			</div>	
 			<div class="form-group">
 				<label for="package_info" class="col-md-3 control-label">パッケージ詳細</label>
 				<div class="col-md-6">
@@ -18,32 +17,30 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="package_name" class="col-md-3 control-label">検索タグ名</label>
+				<label for="package_tag" class="col-md-3 control-label">検索タグ名</label>
 				<div class="col-md-6">
-					<input type="text" class="form-control" id="package_name" placeholder="タグ名を入力してください">
+					<input type="text" class="col-md-2 form-control" id="package_tag">
 				</div>
 			</div>
-
 			<div class="row">
 				<label for="package_name" class="col-md-3 control-label">場の背景</label>
 				<div class="col-md-6">
 					<input type="file" class="form-control" name="" value="">
 				</div>
 			</div>
-
-			<div class="row">	
+			<div class="row">
 				<label for="package_name" class="col-md-3 control-label">手札の背景</label>
 				<div class="col-md-6">
 					<input type="file" class="form-control" name="" value="">
 				</div>
 			</div>
 		</div>
-
-		<div class="col-md-3">
+		<div class="col-md-3">		<!-- パッケージ画像 -->
 			<div class="form-group">
 				<img src="common/image/numakuro.png" class="img-responsive" alt="Responsive image"height="440"width="452">
 			</div>
 		</div>
+
 		<div class="col-md-offset-11 col-md-1">	
 			<div class="form-group">
 				<button type="button" class="btn btn-primary btn-lg ">保存</button>
