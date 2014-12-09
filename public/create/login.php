@@ -39,17 +39,14 @@
 					<form class="form-horizontal" action='' method="POST">
 						<fieldset>
 							<div id="legend">
-								<legend class="">Register</legend>
+								<legend>Register</legend>
 							</div>
-
-								<div class="control-group">
-									<label class="control-label" for="user_id">表示名</label>
-									<div class="controls">
-										<input type="text" id="username" name="name" placeholder="表示名" class="input-xlarge">
-									</div>
+							<div class="control-group">
+								<label class="control-label" for="name_view">表示名</label>
+								<div class="controls">
+									<input type="text" id="name_view" name="name_view" placeholder="まーくん" class="input-xlarge">
 								</div>
-
-
+							</div>
 							<div class="control-group">
 								<label class="control-label" for="user_id">UserID</label>
 								<div class="controls">
@@ -61,12 +58,6 @@
 								<label class="control-label" for="password">Password</label>
 								<div class="controls">
 									<input type="password" id="password" name="pass" placeholder="パスワード" class="input-xlarge">
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label" for="">表示名</label>
-								<div class="controls">
-									<input type="text" id="name_view" name="name_view" placeholder="まーくん" class="input-xlarge">
 								</div>
 							</div>
 
