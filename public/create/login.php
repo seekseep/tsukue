@@ -16,9 +16,9 @@
 									<legend>Login</legend>
 								</div>
 								<div class="control-group">
-									<label class="control-label" for="username">Username</label>
+									<label class="control-label" for="user_id">UserID</label>
 									<div class="controls">
-										<input type="text" id="username" name="name" placeholder="ユーザー名" class="input-xlarge">
+										<input type="text" id="user_id" name="name" placeholder="ユーザーID" class="input-xlarge">
 									</div>
 								</div>
 								<div class="control-group">
@@ -43,9 +43,9 @@
 									<legend class="">Login</legend>
 								</div>
 								<div class="control-group">
-									<label class="control-label" for="username">Username</label>
+									<label class="control-label" for="user_id">UserID</label>
 									<div class="controls">
-										<input type="text" id="username" name="name" placeholder="ユーザー名" class="input-xlarge">
+										<input type="text" id="username" name="name" placeholder="ユーザーID" class="input-xlarge">
 									</div>
 								</div>
 

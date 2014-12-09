@@ -1,7 +1,7 @@
 <?php include_once 'common/php/_head.php'; ?>
 <?php include_once 'common/php/_header.php'; ?>
 <div id="main" class="container">
-	<div class="row" >
+	<div class="row">
 		<div class="col-sm-3 col-sm-offset-9 content_header">
 			<a class="add_btn" href="add.php">パッケージの追加</a>
 		</div>
@@ -12,14 +12,11 @@
 		</div>
 		<div class="col-sm-9 row"> 					<!-- Package右側 -->
 			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-3 package_name">
+				<div class="col-md-offset-1 col-sm-3 package_name">
 					<a>パッケージ名</a>
 				</div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-3 package_info"><a>2014年11月20日</a></div>
-				<div class="col-sm-1"></div>
-				<div class="col-sm-3">
+				<div class="col-md-offset-1 col-sm-3 package_info"><a>2014年11月20日</a></div>
+				<div class="col-md-offset-1 col-sm-3">
 					<a class="edit_btn">パッケージ編集</a>
 				</div>
 			</div>
