@@ -14,7 +14,7 @@
 			<div class="row">
 				<div class="col-md-offset-1 col-md-3 package_name">
 					<a>パッケージ名</a>
-				</div>
+				</div> 
 				<div class="col-md-offset-1 col-md-3 package_info"><a>2014年11月20日</a></div>
 				<div class="col-md-offset-1 col-md-3">
 					<a class="edit_btn">パッケージ編集</a>

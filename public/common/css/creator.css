@@ -113,6 +113,15 @@ a.edit_btn{
     height: 40px;
 }
 
+textarea {              /*add.phpのtextareaサイズ固定*/
+    resize: none;  
+}  
+
+#previewArea img{
+    height:70px;
+    margin:5px;
+}
+
 #top_header_1
 {
     padding:8em;
@@ -124,8 +133,3 @@ a.edit_btn{
 #top_header_3
 {
     padding:8em;
-<<<<<<< HEAD
-}
-=======
-}
->>>>>>> FETCH_HEAD
