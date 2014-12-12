@@ -10,6 +10,6 @@
 	<!-- bootstrap 3 : JavaScript -->
 	<script src="../common/js/bootstrap.min.js"></script>
 
-	<link rel="stylesheet" href="../css/search.css">
+	<link rel="stylesheet" href="./common/css/search.css">
 </head>
 <body>

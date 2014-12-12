@@ -1,5 +1,14 @@
-.results-border{
- border: 1px solid #d3d3d3;
+ul.card-list > li{
+	padding: 20px;
+	border: solid 1px #CCC; 
+	margin: 10px 5px;
 }
 
+ul.card-list > li .image img{
+	margin-bottom: 1em;
+}
 
+.list-inline {
+
+margin-left: 0px;
+}

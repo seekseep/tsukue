@@ -6,7 +6,7 @@
 
 <center>
 <section class="container">
-	<h1>index</h1>
+	<!-- <h1>index</h1> -->
 
 	<img src="common/image/tsukue.png" height="110" width="267" alt="">
 

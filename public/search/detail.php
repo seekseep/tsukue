@@ -1,6 +1,13 @@
 <?php 
 	$title ="detail";
 	include_once 'common/php/_head.php';
+
+	if (isset($_GET["keyword"])) {
+  		$keyword =$_GET['keyword'];
+	}else{
+		$keyword ="";
+	}
+
  ?>
 
 <section class="container">
@@ -185,14 +192,6 @@
 				)
 		);
 	?>	
-	
-	<h1>detail</h1>
-
-	<form class="well form-search" action="./list.php" method="GET">
-	<input type="text" class="input-medium search-query" name="keyword">
-	<button type="submit" class="btn"> 検 索 </button>
-	</form>
-
 	<!--受け取ったデータから値の取出し-->
 	<?php 
 		$package_id = $package['id'];
@@ -206,65 +205,46 @@
 		$package_background_hand = $package['hand'];
 		$package_background_field = $package['field'];
 	?>
+
+
+
+	<h1><?php echo "$package_name"; ?></h1>
+
+	<form class="well form-search" action="./list.php" method="GET">
+	<input type="text" class="input-medium search-query" name="keyword">
+	<button type="submit" class="btn"> 検 索 </button>
+	</form>
+
+	<ol class="breadcrumb">
+	<li><a href="./index.php">トップ</a></li>
+	<?php if($keyword != ""): ?>
+	<?php $href = "./list.php" . "?" . "keyword=" . $keyword;  ?>
+	<li><a href="<?php echo $href; ?>">「<?php echo $keyword; ?>」の検索結果</a></li>
+	<?php endif; ?>
+	<li class="active"><?php echo "$package_name"; ?></li>
+	</ol>
+
+
+
+	<p class="text-left">
+	<a href="#" onClick="history.back(); return false;">
+		<button type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		</button>
+	</a>
+	</p>
+
+	
 	
 	<div class="panel panel-default">
-		<div class="panel-content">
-			<div class="row">
-				<div class="col-sm-3" >
-					<figure>
-						<!-- <img src="<?php echo $package_image; ?>" alt=""> -->
-						<a href="detail.php?id=<?php echo $package_id; ?>"><img style="border:3px solid;" src="common/image/<?php echo $package_image; ?>" height="200" width="200" alt=""></a>
-					</figure>
-				</div>
 
-				<div class="col-sm-9">
-					<div class="row">
-					    <div class="col-sm-12" >
-					    	<div>
-					    		cards :
-					    		<ul class="list-inline">
-						    	   	<?php foreach ($package_cards as $key => $cards) :?>
-
-										<li><img src="common/image/<?php echo $cards['front']; ?>" height="100" width="100" alt=""></li>
-										<li><img src="common/image/<?php echo $cards['back']; ?>"  height="100" width="100" alt=""></li>
-
-									<?php endforeach; ?>	
-						    	</ul>
-						    </div>
-						  
-					    </div>
-					</div>
-
-					<div class="row">
-					    <div class="col-sm-12" >
-					    	background images - hand &amp; field :
-					    	<ul class="list-inline">
-					    		<li><img src="common/image/<?php echo $package_background_hand; ?>" height="100" width="100" alt=""></li>
-					    		<li><img src="common/image/<?php echo $package_background_field; ?>" height="100" width="100" alt=""></li>
-					    	</ul>
-					    </div>   
-					</div>
-
-					<div class="row">
-							<div class="col-sm-12" >
-								description :
-								<p><?php echo $package_description; ?></p>
-							</div>
-					</div>
-
-				</div>
-
-				
-			  
-			</div><!--row end-->
-		</div>
-		<div class="panel-footer" style="background-color: #F0F0F0" >
+		<div class="panel-panel-heading" style="background-color: #F0F0F0" >
 			<div class="row">
 				
 				<div class="col-sm-2 text-danger"><?php echo $package_name; ?></div>
 				<div class="col-sm-5">
 					<?php if(empty($package_tag) ) :?>
-						No tags.
+						タグ未設定
 					<?php else:?>
 
 						<?php foreach ($package_tag as $key => $tag) :?>
@@ -276,12 +256,13 @@
 					<?php endif ?>
 				</div>
 				<div class="col-sm-2">
-					posted: <?php echo $package_time; ?>
+					投稿日: <?php echo $package_time; ?>
 				</div>
-				<div class="col-sm-2">by <?php echo $package_author; ?></div>
-				<div class="col-sm-1" style="padding:3px;">
+				<div class="col-sm-2">投稿者： <?php echo $package_author; ?></div>
+				<div class="col-sm-1">
 					<!-- 切り替えボタンの設定 -->
 					<a data-toggle="modal" href="#myModal" class="btn btn-primary">QRコード</a>
+
 
 					<!-- モーダルの設定 -->
 					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -304,13 +285,86 @@
 				</div>
 			</div><!--row end-->
 		</div>
+
+
+
+
+		<div class="panel-content">
+			<div class="row">
+				<div class="col-sm-3" >
+					<h3 class="text-center">
+						<!-- <img src="<?php echo $package_image; ?>" alt=""> -->
+						<img style="border:3px solid;" src="common/image/<?php echo $package_image; ?>" height="200" width="200" alt="">
+					</h3>
+				</div>
+
+				<div class="col-sm-9">
+					<div class="row">
+							<div class="col-sm-12" >
+								<h3>説明 :</h3>
+								<p><?php echo $package_description; ?></p>
+							</div>
+					</div>
+
+					<div class="row">
+					    <div class="col-sm-12" >
+					    	<h3>背景画像 - 手札 &amp; 場 :</h3>
+					    	<ul class="list-inline">
+					    		<li><img src="common/image/<?php echo $package_background_hand; ?>" height="400" width="400" alt=""></li>
+					    		<li><img src="common/image/<?php echo $package_background_field; ?>" height="400" width="400" alt=""></li>
+					    	</ul>
+					    </div>   
+					</div>
+
+					<div class="row">
+					    <div class="col-sm-12" >
+					    	<div>
+					    		<h3>カード:</h3>
+					    		<ul class="card-list list-inline">
+						    	   	<?php $count=1; ?>
+						    	   	<?php foreach ($package_cards as $key => $cards) :?>
+										<li class="text-center">
+											<h4><?php echo $count; ?></h4>
+											<ul class="list-inline">
+												<li>
+													<span class="image"><img src="common/image/<?php echo $cards['front']; ?>" height="100" width="100" alt=""></span><br />
+													<h4><span class="caption label label-primary">表</span></h4>
+												</li>
+												<li>
+													<span class="image"><img src="common/image/<?php echo $cards['back']; ?>"  height="100" width="100" alt=""></span><br />
+													<h4><span class="caption label label-danger">裏</span></h4>
+												</li>
+											</ul>
+											<?php $count++; ?>
+										</li>
+									<?php endforeach; ?>	
+						    	</ul>
+						    </div>
+						  
+					    </div>
+					</div>
+
+					
+
+					
+
+				</div>
+
+				
+			  
+			</div><!--row end-->
+		</div>
+		
 	</div>
-	
-	<p><a href="#">
+
+	<p class="text-right">
+	<a href="#">
 		<button type="button" class="btn btn-default">
-			<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span> Back to top
+			<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span><!--  Back to top -->
 		</button>
-	</a></p>
+	</a>
+	</p>
+
 
 	<?php else: ?>
 		<html>

@@ -1,17 +1,37 @@
 <?php 
 	$title ="LIST";
+
+	if (isset($_GET["keyword"])) {
+  		$keyword =$_GET['keyword'];
+	}else{
+		$keyword ="";
+	}
+
 	include_once 'common/php/_head.php';
  ?>
 
 <section class="container">
 
-
-<h1>list</h1>
+<h1>「<?php echo $keyword;	?>」の検索結果</h1>
 
 <form class="well form-search" action="./list.php" method="GET">
 	<input type="text" class="input-medium search-query" name="keyword">
 	<button type="submit" class="btn"> 検 索 </button>
 </form>
+
+<ol class="breadcrumb">
+	<li><a href="./index.php">トップ</a></li>
+	<li class="active">「<?php echo $keyword;	?>」の検索結果</li>
+</ol>
+
+<p class="text-left">
+<a href="#" onClick="history.back(); return false;">
+	<button type="button" class="btn btn-default">
+		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><!--  Back -->
+	</button>
+</a>
+</p>
+
 
 <?php 
 $results = array(
@@ -315,6 +335,10 @@ $results = array(
 		$package_cards = $package['cards'];
 		$package_background_hand = $package['hand'];
 		$package_background_field = $package['field'];
+		$package_detail_link = "detail.php" . "?id=" . $package_id;
+		if($keyword != ""){
+			$package_detail_link .= "&keyword=" . $keyword;
+		}
 	?>
 	
 
@@ -324,7 +348,7 @@ $results = array(
 				<div class="col-sm-3" >
 					<figure>
 						<!-- <img src="<?php echo $package_image; ?>" alt=""> -->
-						<a href="detail.php?id=<?php echo $package_id; ?>"><img style="border:3px solid;" src="common/image/<?php echo $package_image; ?>" height="200" width="200" alt=""></a>
+						<a href="<?php echo $package_detail_link; ?>"><img style="border:3px solid;" src="common/image/<?php echo $package_image; ?>" height="200" width="200" alt=""></a>
 					</figure>
 				</div>
 
@@ -351,8 +375,8 @@ $results = array(
 
 					    <div class="col-sm-6" >
 					    	<ul class="list-inline">
-					    		<li><img src="common/image/<?php echo $package_background_hand; ?>" height="50" width="50" alt=""></li>
-					    		<li><img src="common/image/<?php echo $package_background_field; ?>" height="50" width="50" alt=""></li>
+					    		<li><img src="common/image/<?php echo $package_background_hand; ?>" height="150" width="150" alt=""></li>
+					    		<li><img src="common/image/<?php echo $package_background_field; ?>" height="150" width="150" alt=""></li>
 					    	</ul>
 					    </div>
 
@@ -397,7 +421,7 @@ $results = array(
 					posted: <?php echo $package_time; ?>
 				</div>
 				<div class="col-sm-2">by <?php echo $package_author; ?></div>
-				<div class="col-sm-1" style="padding:3px;">
+				<div class="col-sm-1">
 					<!-- 切り替えボタンの設定 -->
 					<a data-toggle="modal" href="#myModal" class="btn btn-primary">QRコード</a>
 
@@ -423,11 +447,13 @@ $results = array(
 		</div>
 	</div>
 
-<p><a href="#">
+<p class="text-right">
+<a href="#">
 	<button type="button" class="btn btn-default">
-		<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span> Back to top
+		<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span><!--  Back to top -->
 	</button>
-</a></p>
+</a>
+</p>
 
 <?php endforeach; ?>
 </section>
