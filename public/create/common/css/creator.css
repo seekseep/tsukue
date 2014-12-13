@@ -30,7 +30,7 @@
 
 #main
 {
-    background-color: #ccc;
+
 }
 
 .package
@@ -41,20 +41,7 @@
     background-color: #fff;
 }
 
-a.add_btn
-{
-    /* パッケージ追加ボタン */
-    display: block;
 
-    width: 180px;
-    padding: 10px 0;
-
-    text-align: center;
-
-    color: #fff;
-    border-radius: 4px;
-    background: #009dc6;
-}
 .content_header
 {
     height: 40px;
@@ -70,20 +57,9 @@ a.add_btn
 }
 .package_name,
 .package_info
+
 {
     margin-top: 5px;
-}
-a.edit_btn{
-    display: block;
-
-
-    padding: 5px 0;
-
-    text-align: center;
-
-    border-radius: 4px #009dc6;
-    background-color: #009dc6;
-
 }
 
 .tags
@@ -113,17 +89,17 @@ a.edit_btn{
     height: 40px;
 }
 
-#top_header_1
+#title_logo
 {
-    padding: 8em;
+    padding: 70px;
 }
-#top_header_2
+#login_btn
 {
-    padding: 0;
+    padding: 30px;
 }
 #top_header_3
 {
-    padding: 8em;
+    padding: 30px;
 }
 
 

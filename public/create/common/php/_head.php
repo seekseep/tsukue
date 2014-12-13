@@ -9,8 +9,8 @@
 	<link rel="stylesheet" href="common/css/creator.css">
 	<link rel="stylesheet" href="../common/css/bootstrap.min.css">
 	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
-  	<script src="../common/js/bootstrap.min.js"></script>
+	<script src="../common/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+  	<script src="../common/js/bootstrap.min.js" type="text/javascript"></script>
 
 </head>
 <body>

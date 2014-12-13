@@ -1,42 +1,5 @@
 <?php include_once 'common/php/_head.php'; ?>
 <?php include_once 'common/php/_header.php'; ?>
-<!-- <script type="text/javascript">			//http://www.yoheim.net/blog.php?q=20120332
-	function preview (e) {				
-		if (!e.files.length) return;
-  // ファイルを1件ずつ処理する
-  var errMsg = "";
-  for (var i = 0; i < e.files.length; i++) {
-  	var file = e.files[i];
-    // 想定したMIMEタイプでない場合には処理しない
-    if (!/^image\/(png|jpeg|gif)$/.test(file.type)) {
-    	errMsg = "対応していないファイルです。\n"
-    	+ "png,jpeg,bmp形式でアップロードしてください。\n";
-    	continue;
-    }
-    // Imageを作成
-    // imgとかfr変数は、ループごとに上書きされるので、
-    // onloadイベントで上書きされた変数にアクセスしないために
-    // fr.tmpImgなどに一時的にポインタを保存したり、
-    // onload関数内では、frやimgでなくthisでアクセスする。
-    var img = document.createElement('img');
-    var fr = new FileReader();
-    fr.tmpImg = img;
-    fr.onload = function () {
-    	this.tmpImg.src = this.result;
-    	this.tmpImg.onload = function () {
-    		document.getElementById('previewArea').appendChild(this);
-    	}
-    }
-    // 画像読み込み
-    fr.readAsDataURL(file);
-}
-
-  // エラーがあれば表示する
-  if (errMsg != "") {
-  	alert(errMsg);
-  }
-}							//ここまでソース丸コピ
-</script>		 -->
 <script>
 	window.addEventListener("load", function(){
 		var btn = document.querySelector("#addFileInputButton");
@@ -103,8 +66,8 @@
 				</div>
 			</div>
 			<div class="form-group">		<!-- ファイル投稿部 -->
-				<input id="addFileInputButton" type="button" value="カード追加">	
-				<div id="addPackageForm"></div>
+				<input id="addFileInputButton" class="col-md-offset-10 btn btn-default"type="button" value="カード追加">	
+				<div id="addPackageForm" class="col-md-offset-2 col-md-8"></div>
 			</div>
 
 		</div>
