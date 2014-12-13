@@ -22,9 +22,12 @@
 					</div>
 				</div>
 				<div class="tags col-md-8">
-					<span class="label label-success">
-						tag
-					</span>
+					<span class="label label-success">tag1</span>
+					<span class="label label-success">tag1</span>
+					<span class="label label-success">tag1</span>
+					<span class="label label-success">tag1</span>
+					<span class="label label-success">tag1</span>
+					
 				</div>
 				<div class="links">
 					<a href="http://twitter.com"><img src="common/image/Twitter_icon.png"></a>

@@ -21,7 +21,6 @@
 				frm.appendChild(fileInputWrap);	
 			}
 		}
-
 		addInputFile(5)
 	})
 </script>
@@ -44,7 +43,7 @@
 			<div class="form-group">		<!-- タグ -->
 				<label for="package_tag" class="col-md-3 control-label">検索タグ名</label>
 				<div class="col-md-9">
-					<input type="text" class="col-md-2 form-control" id="package_tag">
+					<input type="text" value="横山,石田,田口,中山,宮内,篠原,中西,大谷" data-role="tagsinput">
 				</div>
 			</div>
 			<div class="form-group">		<!-- パッケージイメージ -->
