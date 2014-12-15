@@ -16,7 +16,7 @@
 			}
 			for(var i = 0; i < num; i++){
 				var fileInputWrap = document.createElement("div")
-				fileInputWrap.innerHTML = '<p><label>表[' + idx +']<input name="front" type="file"></label></p><p><label>裏[' + idx + ']<input name="back" type="file"></label></p>'
+				fileInputWrap.innerHTML = '<p class="col-md-6 "><label>表[' + idx +']<input name="front" type="file">	</label></p><p class="col-md-6 "><label>裏[' + idx + ']<input name="back" type="file"></label></p>'
 				idx++;
 				frm.appendChild(fileInputWrap);	
 			}
@@ -27,7 +27,7 @@
 
 <div id="main" class="container">
 	<form class="form-horizontal" role="form" action="add.php" method="get">
-		<div class="col-md-offset-1 col-md-9">				<!-- パッケージ左全体 -->	
+		<div class="col-md-offset-1 col-md-9 col-md-offset-2">				<!-- パッケージ左全体 -->	
 			<div class="form-group">		<!-- パッケージ名 -->
 				<label for="package_name" class="col-md-3 control-label">パッケージ名</label>
 				<div class="col-md-9">
@@ -37,7 +37,7 @@
 			<div class="form-group">		<!-- パッケージ詳細 -->
 				<label for="package_info" class="col-md-3 control-label">パッケージ詳細</label>
 				<div class="col-md-9">
-					<textarea name="package_info" rows="3" cols="65" placeholder="パッケージの詳細を入力してください"></textarea>
+					<textarea name="package_info" rows="3"  placeholder="パッケージの詳細を入力してください" style="width:100%" rows=4></textarea>
 				</div>
 			</div>
 			<div class="form-group">		<!-- タグ -->
@@ -64,12 +64,10 @@
 					<input type="file" class="form-control"　accept="image/*" name="" value="">
 				</div>
 			</div>
-			<div class="form-group">		<!-- ファイル投稿部 -->
-				<input id="addFileInputButton" class="col-md-offset-10 btn btn-default"type="button" value="カード追加">	
-				<div id="addPackageForm" class="col-md-offset-2 col-md-8"></div>
-			</div>
-
 		</div>
+		<div class="form-group">		<!-- ファイル投稿部 -->
+			<input id="addFileInputButton" class="col-md-offset-9 btn btn-default"type="button" value="カード追加">	
+			<div id="addPackageForm" class="<!-- col-md-offset-2 --> col-md-9 "></div>
 		<div class="col-md-offset-11 col-md-1">	
 			<div class="form-group">
 				<button type="button" class="btn btn-primary btn-lg ">保存</button>

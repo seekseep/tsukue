@@ -12,7 +12,7 @@
 					<form class="form-horizontal" action='../common/lib/login_check.php' method="POST">
 						<fieldset>
 							<div id="legend">
-								<legend style="margin-bottom: 10px;">Login</legend>
+								<legend style="margin-bottom: 5px;">Login</legend>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="user_id">UserID</label>
@@ -39,7 +39,7 @@
 					<form class="form-horizontal" action='' method="POST">
 						<fieldset>
 							<div id="legend">
-								<legend style="margin-bottom: 10px;">Register</legend>
+								<legend style="margin-bottom: 5px;">Register</legend>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="name_view">表示名</label>
