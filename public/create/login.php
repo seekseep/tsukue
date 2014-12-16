@@ -1,7 +1,7 @@
 <?php include_once 'common/php/_head.php'; ?>
 <?php include_once 'common/php/_header.php'; ?>
 <div class="container">
-	<div class="login_form col-md-offset-4 col-md-4">		
+	<div class="login_form col-md-offset-4 col-md-4" style="margin-top:70px; margin-bottom:70px;">		
 		<div class="well">
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#login" data-toggle="tab">Login</a></li>
