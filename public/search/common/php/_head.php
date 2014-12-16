@@ -11,5 +11,9 @@
 	<script src="../common/js/bootstrap.min.js"></script>
 
 	<link rel="stylesheet" href="./common/css/search.css">
+
+	<!-- google web fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+	
 </head>
 <body>

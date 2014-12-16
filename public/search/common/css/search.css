@@ -9,6 +9,20 @@ ul.card-list > li .image img{
 }
 
 .list-inline {
+	margin-left: 0px;
+}
 
-margin-left: 0px;
+.centering{
+	margin-top: 50px;
+	text-align: center;
+}
+
+.font-poiret-one{
+	font-family: 'Poiret One', cursive;
+	font-size: 183px;
+}
+
+.input-medium.search-query{
+	
+
 }

@@ -211,8 +211,10 @@
 	<h1><?php echo "$package_name"; ?></h1>
 
 	<form class="well form-search" action="./list.php" method="GET">
-	<input type="text" class="input-medium search-query" name="keyword">
-	<button type="submit" class="btn"> 検 索 </button>
+		<input type="text" class="input-medium search-query" name="keyword">
+		<button type="submit" class="btn">
+			<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+		</button>
 	</form>
 
 	<ol class="breadcrumb">
@@ -226,19 +228,19 @@
 
 
 
-	<p class="text-left">
+<!-- 	<p class="text-left">
 	<a href="#" onClick="history.back(); return false;">
 		<button type="button" class="btn btn-default">
 			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 		</button>
 	</a>
-	</p>
+	</p> -->
 
 	
 	
 	<div class="panel panel-default">
 
-		<div class="panel-panel-heading" style="background-color: #F0F0F0" >
+		<div class="panel-heading" style="background-color: #F0F0F0" >
 			<div class="row">
 				
 				<div class="col-sm-2 text-danger"><?php echo $package_name; ?></div>
@@ -256,12 +258,13 @@
 					<?php endif ?>
 				</div>
 				<div class="col-sm-2">
-					投稿日: <?php echo $package_time; ?>
+					投稿日： <?php echo $package_time; ?>
 				</div>
-				<div class="col-sm-2">投稿者： <?php echo $package_author; ?></div>
-				<div class="col-sm-1">
+				
+				<div class="col-sm-3">
+					投稿者： <?php echo $package_author; ?>
 					<!-- 切り替えボタンの設定 -->
-					<a data-toggle="modal" href="#myModal" class="btn btn-primary">QRコード</a>
+					<a data-toggle="modal" href="#myModal" class="btn btn-primary pull-right">QRコード</a>
 
 
 					<!-- モーダルの設定 -->
