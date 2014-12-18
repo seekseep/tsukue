@@ -8,9 +8,10 @@
 
 	<link rel="stylesheet" href="common/css/creator.css">
 	<link rel="stylesheet" href="../common/css/bootstrap.min.css">
-	
+	<link rel="stylesheet" href="../common/css/bootstrap-tagsinput.css"> <!-- タグ登録用 -->
+
 	<script src="../common/js/jquery-1.11.1.min.js" type="text/javascript"></script>
   	<script src="../common/js/bootstrap.min.js" type="text/javascript"></script>
-
+	<script src="../common/js/bootstrap-tagsinput.min.js"type="text/javascript"></script>	<!-- タグ登録用 -->
 </head>
 <body>
