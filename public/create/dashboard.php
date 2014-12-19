@@ -6,8 +6,8 @@
 			<a class="btn btn-info btn-lg" href="add.php">パッケージの追加</a>
 		</div>
 	</div>
-<?php
 
+<?php
 
 // $results =　array(
 // 	"id" => "p_00001",
@@ -21,10 +21,11 @@
 // 	"field" => "numakuro.png",
 // 	),
 
-// $package_id = "";
+// 仮のパッケージデータ
+$package_id = "0001";
 $package_name = "ヌマクロートランプ";
-$package_description = "ここにパッケージの内容が表示されるはずです";
-$package_tag = array("トランプ","シンプル","ゲーム","オリジナル","オリジナル画像","ヌマクロー","ポケモン")	;
+$package_description = "ここにパッケージの説明が表示されるはずです";
+$package_tag = array("ヌマクローがいく〜ストーリーモード〜","シンプル","ゲーム","オリジナル","オリジナル画像","ヌマクロー","ポケモン")	;
 $package_image = "common/image/numakuro.png"; 
 $package_time = "1234/56/78 12:34:56"
 
@@ -49,20 +50,19 @@ $package_time = "1234/56/78 12:34:56"
 		<div class="tags col-md-8">
 			<?php 
 			foreach ($package_tag as $value) {
-		echo ('<span class="label label-success">'. $value .'</span>');
-			}
-			?>
+		echo ('<span class="label label-success" style="float:left; margin:1px">'. $value .'</span>');
+			}?>
 		</div>
-		<div class="links">
+		<div class="links col-md-offset-9">
 			<a href="http://twitter.com"><img src="common/image/Twitter_icon.png"></a>
-
-			<a data-toggle="modal" data-target="#myModal"><img src="common/image/QR_icon.png"></a>
+			<!-- <a data-toggle="modal" data-target="#myModal"><img src="common/image/QR_icon.png"></a> -->
+			<a data-toggle="modal" href="#myModal" class="btn btn-default pull-right" >QRコード</a>
 		</div>
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">	<!-- Modal -->
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-body">
-						<img src="http://chart.apis.google.com/chart?cht=qr&chs=250x250&chl=http://kinako.asia/" alt=""> 
+						<img src="http://chart.apis.google.com/chart?cht=qr&chs=250x250&chl=http://kinako.asia/id=<?php echo $package_id ?>" alt=""> 
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

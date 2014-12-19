@@ -25,6 +25,8 @@
 	})
 </script>
 <?php
+$results = "";
+
 $results = array(
 	array(
 		"id" => "p_00001",
@@ -39,6 +41,11 @@ $results = array(
 		"field" => "numakuro.png",
 		)
 	);
+
+if (empty($_POST[package_name])) {
+	echo "aaa";
+}
+
 ?>
 
 <div id="main" class="container">
@@ -59,7 +66,7 @@ $results = array(
 			<div class="form-group">		<!-- タグ -->
 				<label for="package_tag" class="col-md-3 control-label">検索タグ名</label>
 				<div class="col-md-9">
-					<input type="text" name="package_tag" value="" data-role="tagsinput">
+					<input type="text" name="package_tag" value="ここにタグを入力してください" data-role="tagsinput" >
 				</div>
 			</div>
 			<div class="form-group">		<!-- パッケージイメージ -->
@@ -71,7 +78,7 @@ $results = array(
 			<div class="form-group">		<!-- 場の背景 -->
 				<label for="package_fieldbg" class="col-md-3 control-label">場の背景</label>
 				<div class="col-md-9">
-					<input type="file" class="form-control" accept="image/*" name="packagE_fieldbg" value="">
+					<input type="file" class="form-control" accept="image/*" name="package_fieldbg" value="">
 				</div>
 			</div>
 			<div class="form-group">		<!-- 手札の背景 -->
@@ -89,7 +96,6 @@ $results = array(
 				<button type="submit" class="btn btn-primary btn-lg" onclick="">保存</button>
 			</div>
 		</div>
-		<?php print_r($_POST); ?>
 	</form>
 </div>
 <?php include_once 'common/php/_footer.php'; ?>
