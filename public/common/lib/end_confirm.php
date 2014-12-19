@@ -2,14 +2,23 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<meta http-equiv="refresh" content="2;index.php">
+<meta http-equiv="refresh" content="5; URL=index.php" />
 </head>
 <body>
 
-
 <?php
 	session_start();
-	require 'functions.php';
+
+	require_once 'functions.php';
+	require_once 'api/tukue_package_functions.php';
+	require_once 'api/tukue_creator_functions.php';
+
+	$username = "";
+	if( isset( $_SESSION['username']) ) {
+		$username = $_SESSION['username'];
+	}
+
+	$userid = Get_CreatorId($username);
 
 	$tmp_dir = '../tmp/';
 	$dir = '../package/';
@@ -18,6 +27,8 @@
 	$dir .= $_SESSION['pkg_name'];
 
 	make_dir($dir);
+
+	Package_Register($_SESSION['pkg_name'], $userid, $dir);
 
 	if (is_dir($tmp_dir) . '/img/') {
 		if ($dh = opendir($tmp_dir . '/img/')) {
@@ -32,6 +43,8 @@
 		}
 	}
 
+	var_dump( $tmp_dir );
+
 	if(is_dir($tmp_dir)){
 		if($dh = opendir($tmp_dir)){
 				while(($file = readdir($dh)) !== false) {
@@ -41,13 +54,17 @@
 					}
 				}
 			}
+
+			if($tmp_dir != "../tmp/") {
 			rmdir($tmp_dir . '/img');
 			rmdir($tmp_dir);
+			}
 			closedir($dh);
 		}else {
 			echo 'エラー';
 		}
 	}
+// 	Package_Register(, $creator_id, $dir_path)
 	echo '登録できました。';
 	unset($_SESSION['pkg_name']);
 ?>

@@ -1,9 +1,16 @@
 ﻿<?php
 
-define("dbServer","localhost");
-define("dbUser", "tsukue");
-define("dbPass", "trump");
-define("dbName", "trump_test");
+	require_once 'define.php';
 
-$mysqli = new mysqli(dbServer, dbUser, dbPass, dbName);
-?>
+	function connect () {
+		$mysqli = new mysqli(dbServer, dbUser, dbPass, dbName);
+
+		if(!$mysqli) {
+			die("Can not connect" . dbServer . " : " . mysqli_error());
+		}
+		return $mysqli;
+	}
+
+	function close($mysqli) {
+		mysqli_close();
+	}

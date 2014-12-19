@@ -8,16 +8,16 @@
 <h1>パッケージを一覧表示する</h1>
 <?php
 
-	$d = dir("../package/");
+	require_once 'api/tukue_package_functions.php';
+	require_once 'api/tukue_creator_functions.php';
 
-	while(false !== ($entry = $d->read())){
-		$entry = mb_convert_encoding($entry, "UTF-8", "cp932");
+	$username = $_SESSION['username'];
+	$creator_id = get_CreatorId( $username );
+	$pathData =getPath( $creator_id );
 
-		if($entry != "." && $entry != "..") {
-			echo "<a href='" . "view.php?pack=" . $entry . "'>". $entry . "</a><br />";
-		}
+	foreach ($pathData as $key => $val ) {
+		echo "<p><a href='view.php?pack=" . $val . "'>" . $key . "</a></p>";
 	}
-	$d->close();
 ?>
 
 

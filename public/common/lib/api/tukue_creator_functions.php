@@ -1,7 +1,6 @@
 <?php
 
 	function Creator_Register($creator_name){
-		include 'database.php';
 		include 'Sql_Checker.php';
 		/*
 		 * ユーザ(クリエイター)を作成する時に使う関数
@@ -15,24 +14,29 @@
 	}
 
 	function Creator_Updates($creator_id){
-		include 'database.php';
 		include 'Sql_Checker.php';
+		require_once 'database.php';
+		$mysqli = connect();
+
 		/*
 		 * ユーザ(クリエイター)情報を変更するときに使う
 		 * ユーザ名変更時DBのデータを変更する
 		 */
 		$query = "UPDATE t_creator set creator_name = '" . $creator_name . "' where creator_id = '" . $creator_id . "'";
-		sql($query);
+		sql($mysqli, $query);
 	}
 
-	function Get_CreatorName($creator_name) {
-		include 'database.php';
+	function get_CreatorName($creator_name) {
 		include 'Sql_Checker.php';
+		require_once 'database.php';
+
+		$mysqli = connect();
 		/*
 		 * ユーザ(クリエイター)の引数をもとにSELECTする
 		 * 引数に代入されたユーザがデータベースにあるなら名前が返却
 		 * DBになければNULLが返却
 		 */
+
 		$query = "SELECT creator_name FROM t_creator WHERE creator_name = '" . $creator_name . "'";
 		$result = sql($mysqli, $query);
 
@@ -41,15 +45,16 @@
 		}
 	}
 
-	function Get_CreatorId($creator_name) {
-		include_once 'database.php';
+	function getCreator_id($creator_name) {
 		include_once 'Sql_Checker.php';
+		require_once 'database.php';
+		$mysqli = connect();
 		/*
-		 * ユーザ(クリエイター)の一覧を持ってくる
+		* ユーザ(クリエイター)の一覧を持ってくる
 		* 現在すべてのユーザ(クリエイター)を表示するので、今後
 		* 変えていく
-		*
 		*/
+
 		$query = "SELECT creator_id FROM t_creator WHERE creator_name = '" . $creator_name . "'";
 		$result = sql($mysqli, $query);
 
@@ -59,7 +64,6 @@
 	}
 
 	function Creator_Delete($creator_delete_flag, $creator_id) {
-		include 'database.php';
 		include 'Sql_Checker.php';
 		/*
 		 * ユーザの削除時にDBにあるデータを削除する関数

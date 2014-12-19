@@ -15,13 +15,15 @@
 
 	if($username != null) {
 		echo '<p>' . $username . 'さんようこそ</p>';
-		echo '<a href="logout.php">ログアウト</a>';
+		echo '<a href="logout.php">ログアウト</a><br />';
 	}else {
 		echo 'ログインしてください<br />';
 	}
 ?>
 
-<a href="input_data.php">目標２</a>
+<p><a href="input_data.php">目標２</a></p>
+<p><a href="index.php">TOPページ</a></p>
+<p><a href="test.php">テストページ</a></p>
 
 </body>
 

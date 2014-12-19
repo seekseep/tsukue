@@ -1,17 +1,16 @@
 <?php
-if (is_uploaded_file($_FILES["img_front"]["tmp_name"])) {
+	require_once 'api/tukue_package_functions.php';
+	require_once 'api/tukue_img_functions.php';
+	require_once 'api/tukue_creator_functions.php';
+	require_once 'api/tukue_object_functions.php';
+	require_once 'api/functions.php';
 
-	echo $_FILES["img_front"]["tmp_name"];
-	echo $_FILES["img_front"]["name"];
-exit();
-  if (move_uploaded_file($_FILES["img_front"]["tmp_name"], "../tmp/" . $_FILES["img_front"]["name"])) {
-	
-    chmod("files/" . $_FILES["img_front"]["name"], 0644);
-    echo $_FILES["img_front"]["name"] . "をアップロードしました。";
-  } else {
-    echo "ファイルをアップロードできません。";
-  }
-} else {
-  echo "ファイルが選択されていません。";
-}
+// 	echo  '<pre>';
+// 	var_dump($_POST);
+// 	exit;
+
+
+	$creator_id = getCreator_id( 'test' );
+	package_register( $_FILES, $_POST, $creator_id );
+
 ?>

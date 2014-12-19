@@ -10,6 +10,13 @@
 
 <?php
 
+error_reporting(-1);
+
+session_start();
+
+unset($_SESSION['username']);
+
+session_destroy();
 ?>
 
 <form action="login_check.php" method="POST">

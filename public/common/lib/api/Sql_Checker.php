@@ -1,12 +1,12 @@
 <?php
 
-function sql($mysqli, $query) {
+function sql( $mysqli, $query ) {
 
 	if(isset($mysqli)) {
 		//ある
-		if($mysqli->set_charset("UTF8")){
+		if( $mysqli->set_charset( "UTF8" ) ){
 			//エンコード成功
-			if($result = $mysqli->query($query)){
+			if( $result = $mysqli->query( $query ) ) {
 				//SQL実行成功
  				return $result;
 			}else {
@@ -21,6 +21,4 @@ function sql($mysqli, $query) {
 		//ない
 		return false;
 	}
-	$result->close();
-	mysqli_close($mysqli);
 }

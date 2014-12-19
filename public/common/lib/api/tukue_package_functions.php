@@ -1,25 +1,145 @@
 <?php
 
+	function getPackage_id() {
+		require_once 'Sql_Checker.php';
+		require_once 'database.php';
+
+		$mysqli = connect();
+		$query = "SELECT package_id FROM t_package";
+		$result = sql( $mysqli, $query );
+
+		$package_id = array();
+
+		while( $row = $result -> fetch_assoc() ){
+			$package_id[] = $row;
+		}
+		$result -> free();
+		mysqli_close ( $mysqli );
+
+		return $package_id;
+	}
+
+	function showPackages ( $creator_id ) {
+		/*
+		 * t_packageにある項目全てをcreator_idと同じのだけを返す
+		*/
+		require_once 'Sql_Checker.php';
+		require_once 'database.php';
+		require_once 'tukue_creator_functions.php';
+
+		$mysqli = connect();
+
+		$query = "SELECT package_id FROM t_package WHERE creator_id = '" . $creator_id . "'";
+		$result = sql( $mysqli, $query );
+
+		$package_id = array();
+
+		while( $row = $result->fetch_assoc() ) {
+			$package_id[] = $row;
+		}
+		$result->free();
+		mysqli_close( $mysqli );
+
+		return $package_id;
+	}
+
 	function creator_id_check($creator_id){
-		include 'database.php';
-		include 'Sql_Checker.php';
+		require_once 'Sql_Checker.php';
+		require_once 'database.php';
 		/*
 		 * ログイン中のcreator_idが存在するかチェック
 		* $mysqli = database.phpでオブジェクトを取得済み
 		* $creator_id = ????関数でログイン中のcreatorのidを取得済み
 		*/
 		//$creator_id = ????関数で呼び出された値を代入
+		$mysqli = connect();
+
 		$query ="SELECT creator_id from t_creator where creator_id = '" . $creator_id . "'";
 		$result = sql($mysqli, $query);
 
 		while($row = mysqli_fetch_assoc($result)){
 			return ($row['creator_id']);
 		}
+		$result->close();
+		mysqli_close($mysqli);
 	}
 
-	function  Package_Register($package_name, $creator_id){
-		include 'database.php';
-		include 'Sql_Checker.php';
+	function getPackage_all( $creator_id ){
+		/*
+		 * t_packageにある項目全てをcreator_idと同じのだけを返す
+		*/
+		require_once 'Sql_Checker.php';
+		require_once 'database.php';
+
+		$mysqli = connect();
+
+		$query = "SELECT * FROM t_package WHERE creator_id = '" . $creator_id . "'";
+		$result = sql( $mysqli, $query );
+
+		$AllData = array();
+
+		while( $row = $result->fetch_assoc() ) {
+			$AllData[] = $row;
+		}
+		$result->free();
+		mysqli_close( $mysqli );
+
+		return $AllData;
+
+	}
+
+	function getPackageName ( $creator_id ) {
+
+		/*
+		 * packageのnameを返すメソッド
+		*/
+		require_once 'Sql_Checker.php';
+		require_once 'database.php';
+		require_once 'tukue_creator_functions.php';
+
+		$mysqli = connect();
+
+		$query = "SELECT package_name FROM t_package WHERE creator_id = '" . $creator_id . "'";
+		$result = sql( $mysqli, $query );
+
+		$NameData = array();
+
+		while( $row = $result->fetch_assoc() ) {
+			$NameData[] = $row['package_name'];
+		}
+		$result->free();
+		mysqli_close( $mysqli );
+
+		return $NameData;
+	}
+
+	function getPath ( $creator_id, $package_name ) {
+
+		/*
+		 * packageのpathを返すメソッド
+		 */
+		require_once 'Sql_Checker.php';
+		require_once 'database.php';
+		require_once 'tukue_creator_functions.php';
+
+		$mysqli = connect();
+
+		$query = "SELECT package_path FROM t_package WHERE creator_id = '" . $creator_id . "' AND package_name = '" . $package_name . "'";
+		$result = sql( $mysqli, $query );
+
+		$pathData = array();
+
+		while( $row = $result->fetch_assoc() ) {
+			$pathData = $row['package_path'];
+		}
+		$result->free();
+		mysqli_close( $mysqli );
+
+		return $pathData;
+	}
+
+	function Database_Package_Register( $package_name, $package_description, $creator_id, $package_time, $package_tag ){
+
 		/*
 		 * Package登録時に使う関数
 		 * package登録時DBに情報を保存する
@@ -29,13 +149,18 @@
 		 *       $creator_id = ????関数でcreatorのidを取得している
 		 */
 
-		$query = "INSERT INTO t_package(package_id, package_name, creator_id) VALUES(null, '" . $package_name . "', '" . creator_id_check($creator_id) ."')";
+		require_once 'Sql_Checker.php';
+		require_once 'database.php';
+
+		$mysqli = connect();
+
+		$query = "INSERT INTO t_package(package_id, package_name, package_description, creator_id, package_time, package_tag,) VALUES(null, '" . $package_name . "', '" . $package_description . "', '" . creator_id_check($creator_id) ."', '" . $package_time . "', '" . $package_tag . "'";
 		sql($mysqli, $query);
 	}
 
 	function Package_Updates($package_id, $package_name){
-		include 'database.php';
-		include 'Sql_Checker.php';
+		require_once 'Sql_Checker.php';
+		require_once 'database.php';
 		/*
 		 * packageの名前を変えるときに使う関数
 		 * 引数：$mysqli = database.phpでオブジェクトを持っている
@@ -43,27 +168,37 @@
 		 *       $package_name = 変更後のpackageの名前を持っている
 		 */
 
+		$mysqli = connect();
 		$query = "UPDATE t_package set package_name = '" . $package_name . "' WHERE package_id = '" . $package_id ."'";
 		sql($mysqli, $query);
 	}
 
- 	function Package_View ($creator_id) {
+ 	function get_packageName ( $creator_id ) {
 		/*
 		 * packageの一覧で使う関数です
 		 * 引数：$mysqli = database.phpでオブジェクトを持つ
 		 *       $creator_id = ????関数でcreatorのidを取得済み
 		 */
 
- 		include_once 'database.php';
- 		include_once 'Sql_Checker.php';
+ 		require_once 'Sql_Checker.php';
+ 		require_once 'database.php';
 
 		creator_id_check($creator_id);
 
+		$mysqli = connect();
+
 		$query = "SELECT package_name FROM t_package WHERE creator_id = '" . $creator_id . "'";
 		$result = sql($mysqli, $query);
-		while ( $row = mysqli_fetch_assoc ( $result ) ) {
-			echo "パッケージ名：" . $row['package_name'] . "<br />";
+
+		$packageName_Data = array();
+
+		while( $row = $result->fetch_assoc() ) {
+			$packageName_Data[] = $row['package_name'];
 		}
+		$result->free();
+		mysqli_close( $mysqli );
+
+		return $packageName_Data;
 	}
 
 	function Package_Delete($package_delete_flag, $package_id) {
@@ -75,8 +210,10 @@
 		 *       $package_id = ????関数でpackageのidを取得済み
 		 */
 
-	include 'Sql_Checker.php';
-	include 'database.php';
+		require_once 'Sql_Checker.php';
+		require_once 'database.php';
+		$mysqli = connect();
+
 		if($creator_delete_flag == true) {
 			//フラグがある
 			$query = "DELETE FROM t_package WHERE package_id = '" . $package_id . "'";
