@@ -77,7 +77,7 @@ function getTime(){
 	 * @param なし
 	 * 2014/12/13完成済み
 	 */
-	return date('Y/m/d/H/i/s');
+	return date('Y-m-d');
 }
 
 
@@ -92,8 +92,6 @@ function package_register ( $filedata, $postdata, $creator_id ) {
 	require_once 'tukue_img_functions.php';
 	require_once 'tukue_package_functions.php';
 
-// 	Database_Package_Register($postdata['package_name'], $creator_id,)
-
 	$img_id = getImage_id();
 
 	$time = getTime();
@@ -102,7 +100,6 @@ function package_register ( $filedata, $postdata, $creator_id ) {
 	$filePath = make_directory( $filePath . '/' . time() );
 
 	Database_Package_Register( $postdata['package_name'], $postdata['package_description'], $creator_id, getTime(), $postdata['package_tag'] );
-
 	$package_id = max( getPackage_id() ); //databaseからt_packageのpackage_idの最大値を取得する
 	$package_id = ( $package_id['package_id'] + 1 ); // 取得した最大値に1を足して、t_imgのpackage_idにsetするための値にする
 
@@ -208,7 +205,7 @@ function package_register ( $filedata, $postdata, $creator_id ) {
 	echo '登録できました。';
 }
 
- function unzip($zip, $dir){ // zip解凍
+//  function unzip($zip, $dir){ // zip解凍
 	/*
 	 * zipで投稿されたパッケージを任意のディレクトリに解凍します。
 	 * $dirのディレクトリに解凍されます。
@@ -227,7 +224,7 @@ function package_register ( $filedata, $postdata, $creator_id ) {
 // 	}catch (Exception $e){
 // 		echo 'すでに同じパッケージ名がすでにあるか、何らかの原因で失敗しました。';
 // 	}
- }
+//  }
 
 function text_encoding ( $text ) {
 

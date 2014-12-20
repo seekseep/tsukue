@@ -1,7 +1,8 @@
 <?php
 
-	function Creator_Register($creator_name){
-		include 'Sql_Checker.php';
+	function register_Creator( $creator_name, $creator_pass ) {
+		require_once 'Sql_Checker.php';
+		require_once 'database.php';
 		/*
 		 * ユーザ(クリエイター)を作成する時に使う関数
 		 * ユーザIDとユーザ名をDBにinsertする
@@ -9,12 +10,15 @@
 		 * 引数：$mysqli = database.phpで接続したときにオブジェクトが入ってる
 		 *       $creator_name = isnert.phpから
 		 */
-		$query = "INSERT INTO t_creator(creator_id, creator_name) VALUES(null, '" . $creator_name . "')";
-		sql($query);
+
+		$mysqli = connect();
+
+		$query = "INSERT INTO t_creator(creator_id, creator_name, creator_pass ) VALUES(null, '" . $creator_name . "', '" . $creator_pass . "')";
+		sql( $mysqli, $query );
 	}
 
-	function Creator_Updates($creator_id){
-		include 'Sql_Checker.php';
+	function updates_Creator( $creator_id ){
+		require_once 'Sql_Checker.php';
 		require_once 'database.php';
 		$mysqli = connect();
 
@@ -26,16 +30,16 @@
 		sql($mysqli, $query);
 	}
 
-	function get_CreatorName($creator_name) {
-		include 'Sql_Checker.php';
+	function get_CreatorName( $creator_name ) {
+
+		/*
+		 * 引数をもとにデータベースにある確認するために使用
+		 */
+
+		require_once 'Sql_Checker.php';
 		require_once 'database.php';
 
 		$mysqli = connect();
-		/*
-		 * ユーザ(クリエイター)の引数をもとにSELECTする
-		 * 引数に代入されたユーザがデータベースにあるなら名前が返却
-		 * DBになければNULLが返却
-		 */
 
 		$query = "SELECT creator_name FROM t_creator WHERE creator_name = '" . $creator_name . "'";
 		$result = sql($mysqli, $query);
@@ -45,15 +49,36 @@
 		}
 	}
 
-	function getCreator_id($creator_name) {
-		include_once 'Sql_Checker.php';
-		require_once 'database.php';
-		$mysqli = connect();
+	function get_CreatorPass( $creator_name ) {
 		/*
-		* ユーザ(クリエイター)の一覧を持ってくる
-		* 現在すべてのユーザ(クリエイター)を表示するので、今後
-		* 変えていく
-		*/
+		 * 引数をもとに、creator_passをもってくる
+		 */
+
+		require_once 'Sql_Checker.php';
+		require_once 'database.php';
+
+		$mysqli = connect();
+
+		$query = "SELECT creator_pass FROM t_creator WHERE creator_name = '" . $creator_name . "'";
+
+		$result = sql( $mysqli, $query );
+
+		while( $row = $result->fetch_assoc() ) {
+			$creator_pass[] = $row;
+		}
+		return $creator_pass[0]['creator_pass'];
+	}
+
+	function getCreator_id($creator_name) {
+
+		/*
+		 * 引数をもとにcreator_idを持ってくる
+		 */
+
+		require_once 'Sql_Checker.php';
+		require_once 'database.php';
+
+		$mysqli = connect();
 
 		$query = "SELECT creator_id FROM t_creator WHERE creator_name = '" . $creator_name . "'";
 		$result = sql($mysqli, $query);

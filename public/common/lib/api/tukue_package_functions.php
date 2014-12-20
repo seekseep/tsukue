@@ -13,6 +13,7 @@
 		while( $row = $result -> fetch_assoc() ){
 			$package_id[] = $row;
 		}
+
 		$result -> free();
 		mysqli_close ( $mysqli );
 
@@ -43,7 +44,7 @@
 		return $package_id;
 	}
 
-	function creator_id_check($creator_id){
+	function creator_id_check ( $creator_id ){
 		require_once 'Sql_Checker.php';
 		require_once 'database.php';
 		/*
@@ -54,8 +55,8 @@
 		//$creator_id = ????関数で呼び出された値を代入
 		$mysqli = connect();
 
-		$query ="SELECT creator_id from t_creator where creator_id = '" . $creator_id . "'";
-		$result = sql($mysqli, $query);
+		$query = " SELECT creator_id from t_creator where creator_id = '" . $creator_id . "'";
+		$result = sql( $mysqli, $query );
 
 		while($row = mysqli_fetch_assoc($result)){
 			return ($row['creator_id']);
@@ -154,7 +155,9 @@
 
 		$mysqli = connect();
 
-		$query = "INSERT INTO t_package(package_id, package_name, package_description, creator_id, package_time, package_tag,) VALUES(null, '" . $package_name . "', '" . $package_description . "', '" . creator_id_check($creator_id) ."', '" . $package_time . "', '" . $package_tag . "'";
+		$query = "INSERT INTO t_package(package_id, package_name, package_description, creator_id, package_time, package_tag) VALUES(null, '" . $package_name . "', '" . $package_description . "', '" . $creator_id ."', '" . $package_time . "', '" . $package_tag . "')";
+
+		print_r( $query );
 		sql($mysqli, $query);
 	}
 

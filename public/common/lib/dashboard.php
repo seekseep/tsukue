@@ -11,13 +11,15 @@
 
 	session_start();
 
-	$username = $_SESSION['username'];
+	if( isset($_SESSION['creator_name']) ) {
+		$creator_name = $_SESSION['creator_name'];
+	}
 
-	if($username != null) {
-		echo '<p>' . $username . 'さんようこそ</p>';
+	if( isset( $creator_name ) ) {
+		echo '<p>' . $creator_name . 'さんようこそ</p>';
 		echo '<a href="logout.php">ログアウト</a><br />';
 	}else {
-		echo 'ログインしてください<br />';
+		echo "<a href='login.php'>ログイン</a>してください";
 	}
 ?>
 
