@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" />
-<meta http-equiv="refresh" content="5; URL=index.php" />
+	<meta charset="UTF-8">
 </head>
-<body>
 
-<?php
+<body>
+	<?php
 	session_start();
 
 	require_once 'functions.php';
@@ -39,7 +38,7 @@
 					}
 				}
 			}
-		closedir($dh);
+			closedir($dh);
 		}
 	}
 
@@ -47,26 +46,26 @@
 
 	if(is_dir($tmp_dir)){
 		if($dh = opendir($tmp_dir)){
-				while(($file = readdir($dh)) !== false) {
-					if($file != ".." && $file != "."){
-						if(is_dir($tmp_dir . '/' . $file) != true){
-							rename($tmp_dir .'/' . $file, $dir . '/' . $file);
+			while(($file = readdir($dh)) !== false) {
+				if($file != ".." && $file != "."){
+					if(is_dir($tmp_dir . '/' . $file) != true){
+						rename($tmp_dir .'/' . $file, $dir . '/' . $file);
 					}
 				}
 			}
 
 			if($tmp_dir != "../tmp/") {
-			rmdir($tmp_dir . '/img');
-			rmdir($tmp_dir);
+				rmdir($tmp_dir . '/img');
+				rmdir($tmp_dir);
 			}
 			closedir($dh);
 		}else {
 			echo 'エラー';
 		}
 	}
-// 	Package_Register(, $creator_id, $dir_path)
+	// 	Package_Register(, $creator_id, $dir_path)
 	echo '登録できました。';
 	unset($_SESSION['pkg_name']);
-?>
+	?>
 </body>
 </html>

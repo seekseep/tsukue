@@ -1,16 +1,12 @@
-﻿<?php
+<?php
 
-	require_once 'define.php';
+require_once 'define.php';
 
-	function connect () {
-		$mysqli = new mysqli(dbServer, dbUser, dbPass, dbName);
+function connect () {
+	$mysqli = new mysqli(dbServer, dbUser, dbPass, dbName);
 
-		if(!$mysqli) {
-			die("Can not connect" . dbServer . " : " . mysqli_error());
-		}
-		return $mysqli;
+	if(!$mysqli) {
+		die("Can not connect" . dbServer . " : " . mysqli_error());
 	}
-
-	function close($mysqli) {
-		mysqli_close();
-	}
+	return $mysqli;
+}

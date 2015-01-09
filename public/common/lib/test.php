@@ -5,6 +5,4 @@
 	require_once 'api/tukue_object_functions.php';
 	require_once 'api/functions.php';
 
-// 	$creator_id = getCreator_id( 'test' );
-// 	package_register( $_FILES, $_POST, $creator_id );
 ?>
