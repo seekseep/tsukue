@@ -1,3 +1,5 @@
+<?php require_once '../common/lib/api/tukue_package_functions.php';?>
+<?php require_once '../common/lib/api/tukue_img_functions.php';?>
 <?php include_once 'common/php/_head.php'; ?>
 <?php include_once 'common/php/_header.php'; ?>
 <div id="main" class="container" style="min-height: 600px">
@@ -8,6 +10,8 @@
 	</div>
 
 <?php
+$creator_name = $_SESSION[ 'creator_name' ];
+$results = getPackage_all( $creator_name );
 
 // $results =　array(
 // "id" => "p_00001",
@@ -22,50 +26,46 @@
 // ),
 
 // 仮のパッケージデータ
-$package_id = "0001";
-$package_name = "ヌマクロートランプ";
-$package_description = "ここにパッケージの説明が表示されるはずです";
-$package_tag = array(
-		"ヌマクローがいく〜ストーリーモード〜",
-		"シンプル",
-		"ゲーム",
-		"オリジナル",
-		"オリジナル画像",
-		"ヌマクロー",
-		"ポケモン"
-);
-$package_image = "common/image/numakuro.png";
-$package_time = "1234/56/78 12:34:56"?>
+// $package_id = "0001";
+// $package_name = "ヌマクロートランプ";
+// $package_description = "ここにパッケージの説明が表示されるはずです";
+// $package_tag = array(
+// "ヌマクローがいく〜ストーリーモード〜",
+// "シンプル",
+// "ゲーム",
+// "オリジナル",
+// "オリジナル画像",
+// "ヌマクロー",
+// "ポケモン"
+// );
+// $package_image = "common/image/numakuro.png";
+// $package_time = "1234/56/78 12:34:56"
 
+foreach ( $results as $key => $val ) {
+echo getPackageImage( $val["package_img"] );
 
-
+	?>
 <div class="package col-md-offset-1 col-md-10 row">
 		<!-- パッケージ全体 -->
 		<div class="col-md-3 package_icon">
 			<!-- Package画像 -->
-			<img src=" <?php echo $package_image ?> " class="img-thumbnail"
-				alt="#">
+			<img src=" <?php echo $val["package_image"]; ?> "
+				class="img-thumbnail" alt="#">
 		</div>
 		<div class="col-md-9 row">
 			<!-- Package右側 -->
 			<div class="row">
 				<div class="col-md-offset-1 col-md-4 package_name text-danger">
-			<?php echo $package_name; ?>
+			<?php echo $val["package_name"]; ?>
 			</div>
 				<div class="col-md-4 package_time">
-				<?php echo $package_time?>
+				<?php echo $val["package_time"]; ?>
 			</div>
 				<div class="col-md-3">
 					<a class="btn btn-primary">パッケージ編集</a>
 				</div>
 			</div>
-			<div class="tags col-md-8">
-			<?php
-			foreach ( $package_tag as $value ) {
-				echo ( '<span class="label label-success" style="float:left; margin:1px">' . $value . '</span>' );
-			}
-			?>
-		</div>
+			<div class="tags col-md-8"></div>
 			<div class="links col-md-offset-9">
 				<a href="http://twitter.com"><img
 					src="common/image/Twitter_icon.png"></a>
@@ -80,7 +80,7 @@ $package_time = "1234/56/78 12:34:56"?>
 					<div class="modal-content">
 						<div class="modal-body">
 							<img
-								src="http://chart.apis.google.com/chart?cht=qr&chs=250x250&chl=http://kinako.asia/id=<?php echo $package_id ?>"
+								src="http://chart.apis.google.com/chart?cht=qr&chs=250x250&chl=http://kinako.asia/id=<?php echo $val["package_id"]; ?>"
 								alt="">
 						</div>
 						<div class="modal-footer">
@@ -92,10 +92,14 @@ $package_time = "1234/56/78 12:34:56"?>
 			</div>
 			<!-- Modal -->
 			<p class="package_description text-info">
-			<?php echo($package_description)?>
+			<?php echo $val["package_description"]; ?>
 		</p>
 		</div>
 	</div>
+	<?php
+}
+?>
 </div>
+
 <?php include_once 'common/php/_footer.php'; ?>
 <?php include_once 'common/php/_foot.php'; ?>
