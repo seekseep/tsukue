@@ -1,5 +1,5 @@
 <?php 
-	$title ="detail";
+	$title ="DETAIL";
 	include_once 'common/php/_head.php';
 
 	if (isset($_GET["keyword"])) {
