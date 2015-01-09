@@ -1,7 +1,14 @@
 <?php include_once 'common/php/_head.php'; ?>
 <?php include_once 'common/php/_header.php'; ?>
+<?php
+
+if ( isset( $_SESSION[ 'creator_name' ] ) ) {
+	header( "location: dashboard.php" );
+}
+?>
 <div class="container">
-	<div class="login_form col-md-offset-4 col-md-4" style="margin-top:70px; margin-bottom:70px;">		
+	<div class="login_form col-md-offset-4 col-md-4"
+		style="margin-top: 70px; margin-bottom: 70px;">
 		<div class="well">
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#login" data-toggle="tab">Login</a></li>
@@ -9,7 +16,8 @@
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active in" id="login">
-					<form class="form-horizontal" action='../common/lib/login_check.php' method="POST">
+					<form class="form-horizontal" action='../common/lib/login_check.php'
+						method="POST">
 						<fieldset>
 							<div id="legend">
 								<legend style="margin-bottom: 5px;">Login</legend>
@@ -17,13 +25,15 @@
 							<div class="control-group">
 								<label class="control-label" for="user_id">UserID</label>
 								<div class="controls">
-									<input type="text" id="user_id" name="name" placeholder="ユーザーID" class="input-xlarge">
+									<input type="text" id="user_id" name="creator_name"
+										placeholder="ユーザーID" class="input-xlarge">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="password">Password</label>
 								<div class="controls">
-									<input type="password" id="password" name="pass" placeholder="パスワード" class="input-xlarge">
+									<input type="password" id="password" name="creator_pass"
+										placeholder="パスワード" class="input-xlarge">
 								</div>
 							</div>
 
@@ -36,28 +46,24 @@
 					</form>
 				</div>
 				<div class="tab-pane fade" id="create">
-					<form class="form-horizontal" action='' method="POST">
+					<form class="form-horizontal" action='../common/lib/creator_register.php' method="POST">
 						<fieldset>
 							<div id="legend">
 								<legend style="margin-bottom: 5px;">Register</legend>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="name_view">表示名</label>
-								<div class="controls">
-									<input type="text" id="name_view" name="name_view" placeholder="まーくん" class="input-xlarge">
-								</div>
-							</div>
-							<div class="control-group">
 								<label class="control-label" for="user_id">UserID</label>
 								<div class="controls">
-									<input type="text" id="username" name="name" placeholder="ユーザーID" class="input-xlarge">
+									<input type="text" id="username" name="creator_name"
+										placeholder="ユーザーID" class="input-xlarge">
 								</div>
 							</div>
 
 							<div class="control-group">
 								<label class="control-label" for="password">Password</label>
 								<div class="controls">
-									<input type="password" id="password" name="pass" placeholder="パスワード" class="input-xlarge">
+									<input type="password" id="password" name="creator_pass"
+										placeholder="パスワード" class="input-xlarge">
 								</div>
 							</div>
 

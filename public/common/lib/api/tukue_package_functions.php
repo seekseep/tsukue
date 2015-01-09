@@ -9,7 +9,7 @@ function getMaxId () {
 	$result = sql( $mysqli, $query );
 
 	$row = $result->fetch_assoc();
-	$package_id= $row[ 'MAX(package_id)' ];
+	$package_id = $row[ 'MAX(package_id)' ];
 
 	$result->free();
 	mysqli_close( $mysqli );
@@ -80,23 +80,25 @@ function creator_id_check ( $creator_id ) {
 	mysqli_close( $mysqli );
 }
 
-function getPackage_all ( $creator_id ) {
+function getPackage_all ( $creator_name ) {
 	/*
 	 * t_packageにある項目全てをcreator_idと同じのだけを返す
 	 */
 	require_once 'Sql_Checker.php';
 	require_once 'database.php';
+	require_once 'tukue_creator_functions.php';
 
+	$creator_id = getCreator_id( $creator_name );
 	$mysqli = connect();
 
 	$query = "SELECT * FROM t_package WHERE creator_id = '" . $creator_id . "'";
 	$result = sql( $mysqli, $query );
 
 	$AllData = array();
-
 	while ( $row = $result->fetch_assoc() ) {
 		$AllData[] = $row;
 	}
+
 	$result->free();
 	mysqli_close( $mysqli );
 

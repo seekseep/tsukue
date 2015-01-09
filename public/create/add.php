@@ -16,12 +16,12 @@
 			}
 			for(var i = 0; i < num; i++){
 				var fileInputWrap = document.createElement("div")
-				fileInputWrap.innerHTML = '<p class="col-md-6 "><label>表[' + idx +']<input name="front" type="file">	</label></p><p class="col-md-6 "><label>裏[' + idx + ']<input name="back" type="file"></label></p>'
+				fileInputWrap.innerHTML = '<p class="col-md-6 "><label>表[' + idx +']<input name="front[]" type="file">	</label></p><p class="col-md-6 "><label>裏[' + idx + ']<input name="back[]" type="file"></label></p>'
 				idx++;
-				frm.appendChild(fileInputWrap);	
+				frm.appendChild(fileInputWrap);
 			}
 		}
-		addInputFile(5)
+		addInputFile(2)
 	})
 </script>
 <?php
@@ -42,21 +42,17 @@ $results = array(
 		)
 	);
 
-if (empty($_POST[package_name])) {
-	echo "aaa";
-}
-
 ?>
 
 <div id="main" class="container">
-	<form class="form-horizontal" role="form" action="add.php" method="post" enctype="multipart/form-data">
+	<form class="form-horizontal" role="form" action="../common/lib/confirm.php" method="post" enctype="multipart/form-data">
 		<div class="col-md-offset-1 col-md-9 col-md-offset-2">
 			<div class="form-group">		<!-- パッケージ名 -->
 				<label for="package_name" class="col-md-3 control-label">パッケージ名</label>
 				<div class="col-md-9">
 					<input type="text" class="form-control" name="package_name" placeholder="パッケージ名を入力してください">
 				</div>
-			</div>	
+			</div>
 			<div class="form-group">		<!-- パッケージ詳細 -->
 				<label for="package_description" class="col-md-3 control-label">パッケージ詳細</label>
 				<div class="col-md-9">
@@ -89,9 +85,9 @@ if (empty($_POST[package_name])) {
 			</div>
 		</div>
 		<div class="form-group">		<!-- ファイル投稿部 -->
-			<input id="addFileInputButton" class="col-md-offset-9 btn btn-default"type="button" value="カード追加">	
+			<input id="addFileInputButton" class="col-md-offset-9 btn btn-default"type="button" value="カード追加">
 			<div id="addPackageForm" class=" col-md-offset-2 col-md-9 "></div>
-		<div class="col-md-offset-11 col-md-1">	
+		<div class="col-md-offset-11 col-md-1">
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary btn-lg" onclick="">保存</button>
 			</div>

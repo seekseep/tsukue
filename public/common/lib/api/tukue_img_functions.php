@@ -21,6 +21,23 @@ function getImaga_path ( $img_id ) {
 	return $img_path;
 }
 
+function getPackageImage ( $package_img ) {
+	require_once 'Sql_Checker.php';
+	require_once 'database.php';
+
+	$mysqli = connect();
+
+	$query = "SELECT id FROM t_img WHERE id = " . $package_img;
+	$result = sql( $mysqli, $query );
+
+	$PackageImage = $result->fetch_assoc();
+
+	$result->free();
+	mysqli_close( $mysqli );
+
+	return $PackageImage;
+}
+
 function getImage_id () {
 	require_once 'Sql_Checker.php';
 	require_once 'database.php';
