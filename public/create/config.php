@@ -1,7 +1,8 @@
 <?php include_once 'common/php/_head.php'; ?>
 <?php include_once 'common/php/_header.php'; ?>
 <div class="container">
-	<div class="login_form col-md-offset-4 col-md-4" style="margin-top:70px; margin-bottom:70px;">		
+	<div class="login_form col-md-offset-4 col-md-4"
+		style="margin-top: 70px; margin-bottom: 70px;">
 		<div class="well">
 			<ul class="nav nav-tabs">
 				<li class><a href="#create" data-toggle="tab">Register</a></li>
@@ -17,20 +18,23 @@
 							<div class="control-group">
 								<label class="control-label" for="name_view">表示名</label>
 								<div class="controls">
-									<input type="text" id="name_view" name="name_view" placeholder="まーくん" class="input-xlarge">
+									<input type="text" id="name_view" name="name_view"
+										placeholder="まーくん" class="input-xlarge">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="user_id">UserID</label>
 								<div class="controls">
-									<input type="text" id="username" name="name" placeholder="ユーザーID" class="input-xlarge">
+									<input type="text" id="username" name="name"
+										placeholder="ユーザーID" class="input-xlarge">
 								</div>
 							</div>
 
 							<div class="control-group">
 								<label class="control-label" for="password">Password</label>
 								<div class="controls">
-									<input type="password" id="password" name="pass" placeholder="パスワード" class="input-xlarge">
+									<input type="password" id="password" name="pass"
+										placeholder="パスワード" class="input-xlarge">
 								</div>
 							</div>
 
