@@ -1,0 +1,67 @@
+
+			html,body {
+				height:100%;
+				margin:0;
+				overflow:hidden;
+			}
+			body::before{
+content: attr(data-roomid);
+position: fixed;
+font-size: 100px;
+color: rgba(0,0,0,0.6);
+top: 50%;
+left: 50%;
+width: 100px;
+height: 100px;
+overflow: visible;
+z-index: 9999999999;
+			}
+
+			.card {
+				background-image:url(img/card.png);
+				position:absolute;
+				width:200px;
+				height:300px;
+			}
+			.back {
+				background-position:-400px -1200px !important;
+			}
+			.select {
+				box-shadow:0 0 10px blue;
+			}
+			.fields {
+				-webkit-transform-origin:left top;
+				transform-origin:left top;
+				width:2600px;
+				height:1500px;
+				/*background-image:url(img/card.png);*/
+			}
+			#field {
+				background: #CCE;
+				display:none;
+				/*width:2600px;
+				height:1500px;*/
+			}
+			#hand {
+				background: #ECC;
+				/*width:0;
+				height:0;*/
+			}
+			#menu {
+				background-color:Silver;
+				border-radius:5px;
+				box-shadow:0 0 10px black;
+				display:none;
+				position:fixed;
+				width:100px;
+				height:100px;
+				z-index:9999999;
+			}
+			#msg {
+				background-color:Green;
+				border-radius:5px;
+				box-shadow:0 0 10px black;
+				padding:10px;
+				position:fixed;
+				z-index:9999999;
+			}

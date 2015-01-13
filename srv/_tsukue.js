@@ -1,0 +1,443 @@
+// app.js
+
+var app = require('http').createServer(handler),
+    io = require('socket.io').listen(app),
+    fs = require('fs');
+
+app.listen(9001);
+
+function handler(req, res) {
+    fs.readFile(__dirname + '/index.html', function (err, data) {
+        if (err) {
+            res.witeHead(500);
+            return res.end('Error');
+        }
+        res.writeHead(200);
+        res.write(data);
+        res.end()
+    })
+}
+// ================================================================================================
+// Card
+// ================================================================================================
+var Card = function (option) {
+
+    this.init = function (option) {
+        this.id = option.id;
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
+        this.front = true;
+        this.rotate = 0;
+    };
+
+    this.init(option);
+};
+// ------------------------------------------------------------------------------------------------
+Card.prototype = {
+    id: null,
+    rotate: null,
+    x: null,
+    y: null,
+    z: null,
+    front: null
+};
+// ================================================================================================
+
+// ================================================================================================
+// CardPackage
+// ================================================================================================
+var CardPackage = function (cardNum) {
+
+    this.init = function (cardPackageJSON) {
+        this.list = [];
+        for (var i = 0; i < cardNum; i++) {
+            var option = {};
+            option.id = i;
+            var card = new Card(option);
+            this.list.push(card) // すべてを裏にする
+        }
+    };
+
+    this.init(cardNum);
+};
+// ------------------------------------------------------------------------------------------------
+CardPackage.prototype = {
+    list: null
+};
+// ================================================================================================
+// Player
+// ================================================================================================
+var Player = function (option) {
+
+    // 初期化文
+    this.init = function (option) {
+        this.id = option.id;
+        this.name = option.name;
+        this.socket = option.socket;
+    };
+
+    this.init(option);
+
+    // set Player
+    return this;
+};
+// ------------------------------------------------------------------------------------------------
+Player.prototype = {
+    name: null,
+    id: null,
+    socket: null
+};
+// ================================================================================================
+
+// ================================================================================================
+// Player Colection 
+// ================================================================================================
+var PlayerColection = function () {
+
+    this.init = function () {
+        this.playerTable = {};
+        this.playerIndex = 0;
+    };
+
+    this.setPlayer = function (player) {
+        this.playerTable[player.id] = player;
+    };
+
+    this.playerExists = function (playerId) {
+        return this.playerTable[player.id];
+    };
+
+    this.getPlayersId = function () {
+    };
+
+    // getPlayerメソット
+    this.getNewPlayerId = function () {
+        var playerId = this.playerIndex;
+
+        this.playerIndex++;
+
+        if (this.playerIndex > 999999) {
+            this.playerIndex = 0;
+        }
+
+        return playerId;
+    };
+
+    this.init();
+};
+//------------------------------------------------------------------------------------------------
+PlayerColection.prototype = {
+    playerTable: null,
+    playerIndex: null
+};
+// ================================================================================================
+
+// ================================================================================================
+// CardMap
+// ================================================================================================
+var CardMap = function (cardPackage) {
+    this.init = function (cardPackage) {
+        this.map = {};
+        this.map.field = [];
+        //カードの情報を取得
+        this.map.field = cardPackage.list;
+        console.log(this, this.map);
+    };
+
+    this.setPlayer = function (player) {
+        this.map[player.id] = [];
+    };
+
+    //カードの受け渡し
+    this.moveCard = function (cardId, toPlayerId, fromPlayerId) {
+        //受け渡しするためのメソットを作成
+        //相手側のカードメソット
+        var toList = this.map[toPlayerId];
+        //自分のカードメソット
+        var fromList = this.map[fromPlayerId];
+        //移動させるカード
+        var targetCard = null;
+
+        console.log(fromPlayerId);
+        console.log(toPlayerId);
+        console.log(cardId);
+
+        //カードの受け渡し処理
+        for (var i = 0; i < fromList.length; i++) {
+            console.log(fromList[i], cardId);
+            if (fromList[i].id == cardId) {
+                targetCard = fromList.splice(i, 1)[0];
+            }
+        }
+
+        //リストの中身を更新
+        toList.push(targetCard);
+    };
+
+    this.updateCard = function (playerId, cardId, data) {
+        var cardList = this.map[playerId];
+        var targetCard = null;
+        for (var i = 0; i < cardList.length; i++) {
+            console.log(cardList[i], cardId);
+            if (cardList[i] == cardId) {
+                targetCard = cardList[i];
+            }
+        }
+        console.log(targetCard);
+    };
+
+    this.init(cardPackage);
+};
+// ------------------------------------------------------------------------------------------------
+CardMap.prototype = {
+    map: {}
+}
+// ================================================================================================
+
+// ================================================================================================
+// Room
+// ================================================================================================
+var Room = function (option) {
+    console.log("new Room with", option);
+    // option = {
+    //     id: id,
+    //     cardPackageId: cardPackageId
+    // }
+
+    this.init = function (optoin) {
+
+        console.log("Room.init() with ", option);
+
+        // IDを設定する
+        this.id = option.id;
+
+        // パッケージを設定する
+        this.cardPackage = new CardPackage(optoin.cardNum);
+
+        // カードマップを設定
+        this.cardMap = new CardMap(this.cardPackage);
+
+        // プレイヤーコレクションの設定
+        this.playerColection = new PlayerColection();
+    }
+
+    this.addPlayer = function (option) {
+        option.id = this.playerColection.getNewPlayerId();
+
+        var player = new Player(option);
+        this.setPlayer(player);
+
+        return player;
+    }
+
+    this.setPlayer = function (player) {
+        this.playerColection.setPlayer(player);
+        this.cardMap.setPlayer(player);
+    }
+
+    this.update = function () {
+        var playerTable = this.playerColection.playerTable;
+        var cardMap = this.cardMap.map;
+        for (var id in playerTable) {
+            var player = playerTable[id];
+            var socket = player.socket;
+            console.log("=====================================");
+            console.log(socket.id);
+            console.log("=-----------------------------------=");
+            console.log(socket.emit);
+            console.log("=====================================");
+            socket.emit("update", cardMap);
+        }
+    }
+
+    this.init(option);
+};
+// ------------------------------------------------------------------------------------------------
+Room.prototype = {
+    id: null,
+    cardPackageid: null,
+    playerColection: null,
+    cardMap: null,
+    setPlayer: null
+}
+// ------------------------------------------------------------------------------------------------
+
+// ================================================================================================
+// RoomColection
+// ================================================================================================
+var RoomColection = function () {
+
+    this.init = function () {
+        this.roomTable = {};
+        this.roomIndex = 0;
+    }
+
+    this.setRoom = function (Room) {
+        this.roomTable[Room.id] = Room;
+    }
+
+    this.getRoom = function (roomId) {
+        return this.roomTable[roomId];
+    }
+
+    this.getNewRoomId = function () {
+        var roomId = this.roomIndex;
+        this.roomIndex++;
+        if (this.roomIndex > 99999999) {
+            this.roomIndex = 0;
+        }
+        return roomId;
+    }
+
+    this.init();
+}
+// ------------------------------------------------------------------------------------------------
+RoomColection.prototype = {
+    roomTable: null,
+    roomIdHeader: null,
+    roomIndex: null,
+}
+// ================================================================================================
+
+var roomColection = new RoomColection();
+io.on('connection', function (socket) {
+    console.log(socket.id, "is connected");
+    socket.on("enterRoom", function (enterRoomOption) {
+        console.log("on enterRoom")
+
+        var makeRoomOption = enterRoomOption.makeRoomOption;
+        var visitRoomOption = enterRoomOption.visitRoomOption;
+
+        var response = {};
+
+        if (makeRoomOption) {
+            console.log("makeRoom with ", makeRoomOption)
+            try {
+
+                // ルームを作るためのオプション
+                var option = {};
+                option.id = roomColection.getNewRoomId();
+                option.cardNum = makeRoomOption.cardNum;
+
+                // room を作る
+                var room = new Room(option);
+                response.room = {};
+                response.room.id = room.id;
+                response.room.cardMap = room.cardMap.map;
+
+                //ルームを保存する
+                roomColection.setRoom(room);
+                console.log("roomColection", roomColection);
+
+                // player 作成の為のオプションを作る
+                var option = {};
+                option.name = makeRoomOption.playerName;
+                option.socket = socket;
+
+                //playerを保存する
+                var player = room.addPlayer(option);
+                response.player = {};
+                response.player.id = player.id;
+
+            } catch (e) {　　
+                console.error(e);
+                response = false;
+            } finally {
+                console.log('makeRoomResponse', response);
+                socket.emit('makeRoomResponse', response);
+            }
+
+        } else if (visitRoomOption) {
+            console.log("visitRoomStart");
+
+            try {
+                // visitRoomOption を取り出す
+                var option = enterRoomOption.visitRoomOption;
+                console.log("option", option);
+
+                // 部屋が存在するかを確認する
+                var roomId = option.roomId;
+                var room = roomColection.getRoom(roomId);
+                if (!room) {
+                    throw "[存在しない部屋が参照されました。]";
+                } else {
+                    console.log("room-id : ", room.id)
+                }
+
+                var option = {};
+                option.name = visitRoomOption.playerName;
+                option.socket = socket;
+
+                var player = room.addPlayer(option);
+
+                response.room = {};
+                response.room.id = room.id;
+                response.room.cardMap = room.cardMap.map;
+
+                response.player = {};
+                response.player.id = player.id;
+            } catch (e) {
+                console.log(e);
+            } finally {
+                socket.emit('visitRoomResponse', response);
+                room.update();
+            }
+
+
+        } else if (enterRoomOption.returnRoomOption) {
+            var option = enterRoomOption.returnRoomOption
+
+
+        } else {
+
+        }
+
+        return;
+    });
+
+    socket.on("chackRoom", function (chakRoomOption) {
+
+    });
+
+    socket.on("", function () {
+
+    });
+
+    socket.on("", function () {
+
+    });
+
+    socket.on("moveCard", function (option) {
+        console.log(option);
+        var roomId = option.room.id;
+        var room = roomColection.getRoom(roomId);
+        if (!room) {
+            return false;
+        }
+        var cardMap = room.cardMap;
+
+        var cardId = option.card.id;
+        var toPlayerId = option.toPlayerId;
+        var fromPlayerId = option.fromPlayerId;
+
+        cardMap.moveCard(cardId, toPlayerId, fromPlayerId);
+
+        room.update();
+    });
+
+    socket.on("updateCard", function (option) {
+
+
+        var room = roomColection.getRoom(option.room.id);
+        console.log(room);
+
+        console.log(option);
+
+        room.cardMap.updateCard(playerId, cardId, data);
+        room.update();
+    });
+});
+
+
+console.log("this is app.js")
