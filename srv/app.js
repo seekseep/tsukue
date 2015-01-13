@@ -1,89 +1,153 @@
-// app.js
-<<<<<<< HEAD
-var app = require('http').createServer(handler),
-io = require('socket.io').listen(app),
-fs = require('fs');
+	var app = require('http').createServer(handler)
+var io = require('socket.io')(app);
 
-app.listen(9001);
-function handler(req, res) {
-	  fs.readFile(__dirname + '/index.html', function(err, data) {
-  	  if(err) {
-    	  res.witeHead(500);
-	     	return res.end('Error'); 
-  	  }
-    	res.writeHead(200);
-    	res.write(data);
-    	res.end()
-  	})
+// ***********************************************************************
+
+function handler (req, res) {
+    res.writeHead(200);
+    res.end('this is socket server');
 }
 
-// room_id‚ð•Û‘¶‚·‚é
-var rooms = {};
-io.on('connection', function(socket){
+// ***********************************************************************
 
-	// •”‰®‚ðì‚é
-	socket.on('create_room', function(data){
-		var ret;
-		var room_id = data.room_id;
-		if(room_id) {
-			// room_id‚ª“n‚³‚ê‚Ä‚é‚Æ‚«
-			console.log(rooms[room_id]);
-			if(rooms[room_id]){ // •”‰®‚Ìd•¡Šm”F
-				// •”‰®‚ª‚ ‚é‚Æ‚«
-				console.error('room_id : ' + room_id + ' is already exisit');
-				ret = false;
-			}else{
-				// •”‰®‚ª‚È‚¢‚Æ‚«
-				rooms[room_id] = {};
-				console.log('room_id : ' + room_id + 'is maked');
-				ret = true;
-			}
-		}else{
-			//room_id‚ª“n‚³‚ê‚Ä‚È‚¢‚Æ‚«
-			console.error("room_id is not defined");
-			ret = false;
-		}
-		
-		console.log(rooms);
-	
-		// socket.emit('', ret)
-	});
+var Rooms = {};
+Rooms.index = 0;
 
-	// “üŽº‰Â”\Šm”F
-	socket.on('check_enter_room', function(data){
-	
-		var ret; // true or false
-		var room_id = data.room_id;
-		if(rooms[room_id]){
-			// •”‰®‚ª‚ ‚é‚Æ‚«
-			console.log('room_id : ' + room_id + 'is able to be entered');
-			ret = true;
-		}else{
-			// •”‰®‚ª‚È‚¢‚Æ‚«
-			console.log('room_id : ' + room_id + 'is not able to be entered');
-			ret = false;
-		}
-	
-		socket.emit('ret_check_enter_room', ret); // true or false
-	});// end: 'emit_from_client'
-	
-	// “üŽºˆ—
-	socket.on('enter_room', function(data){
-	
-		var room_id = data.room_id;
-	
-		var room = rooms[room_id];
-		room[socket.id] = socket;
-	
-		console.log(room_id, room);
-	
-		// socket.emit('enter_room_ret', data); // true or false
-	
-	});// end: 'emit_from_client'
+// ***********************************************************************
 
-});// end: io.on('connection')
-console.log("Hello world!")
-=======
+io.on('connection', function (socket) {
 
-console.log("this is app.js")
->>>>>>> 4a04c157286f8994e672621e85746a92221eead4
+    socket.on('makeRoom', function(data){
+        console.log('makeRoom', data);
+
+
+        var room = {};
+        room.player = {};
+        room.id = Rooms.index++;
+        room.playerIndex = 1;
+        room.list = {};
+        Rooms[room.id] = room;
+
+        var player = {};
+        player.id = room.playerIndex++;
+        player.name = data.player.name;
+        player.socket = socket;
+//        console.log('player', player);
+
+        room.player[player.id] = player;
+
+        room.list[0] = [];
+        room.list[player.id] = [];
+
+        var num = data.room.card.num;
+        for(var idx = 0; idx < num; idx++){
+            room.list[0].push({
+                id : idx
+            });
+        }
+
+        var players = [];
+        for(var id in room.player){
+            players[id] = {
+                'name' : room.player[id].name
+            };
+        }
+
+        var res = {
+            'room' : {
+                'id' : room.id,
+                'list' : room.list,
+                'player' : players
+            },
+            'player' : {
+                'id' : player.id,
+                'name' : player.name
+            }
+        };
+
+        socket.emit('makeRoomRes', res); // makeRoom ã®ãƒ¬ã‚¹ãƒãƒ³ã‚¹
+        socket.join(room.id); // broadcast ã®ã‚°ãƒ«ãƒ¼ãƒ—ã‚’æ±ºã‚ã‚‹
+    });
+
+    socket.on('joinRoom', function(data){
+
+        var room = Rooms[data.room.id];
+
+        if(!room){
+             socket.emit('joinRoomRes', {error:"The Room Not Found"});
+            return false;
+        }
+
+        var player = {};
+        player.id = room.playerIndex++;
+        player.name = data.player.name;
+        player.socket = socket;
+
+        room.player[player.id] = player;
+        room.list[player.id] = [];
+
+        var players = [];
+        for(var id in room.player){
+            players[id] = {
+                'name' : room.player[id].name
+            };
+        }
+
+        var res = {
+            'room' :{
+                'id' : room.id,
+                'list' : room.list,
+                'player' : players
+            },
+            'player':{
+                'id' : player.id,
+                'name' : player.name
+            }
+        };
+
+        socket.join(room.id); // room ã«è¿½åŠ 
+        socket.emit('joinRoomRes', res); // è‡ªåˆ†ã®æƒ…å ±ã‚’è¿½åŠ 
+
+        var broadcastData = {
+            'room' : {
+                'id' : room.id,
+                'list' : room.list,
+                'player': players
+            }
+        };
+		console.log('ROOM-ID IS ', room.id);
+        socket.broadcast.to(room.id).emit('joinedPlayer', broadcastData); // è¿½åŠ ã—ãŸã“ã¨ã‚’å…¨ä½“ã«å ±å‘Š
+    });
+
+    socket.on('updateCardApply', function(data){
+
+        var room = Rooms[data.room.id];
+        var player = data.player;
+        var card = data.card;
+
+        room.list[player.id][card.id] = card;
+
+        socket.broadcast.to(room.id).emit('updateCard', data);
+
+    });
+
+    socket.on('moveCardApply', function(data){
+		console.log("MOVE-CARD-APPLY");
+        var room = Rooms[data.room.id];
+	    var roomId = room.id;
+        var fromPlayer = data.player.from;
+        var toPlayer = data.player.to;
+        var card = data.card;
+
+        room.list[fromPlayer.id][card.id] = undefined;
+        room.list[toPlayer.id][card.id] = card;
+
+		console.log(socket.rooms);
+
+		io.to(room.id).emit('moveCard', data);
+    });
+});
+
+
+app.listen(1337);
+console.log("server on :1337");
