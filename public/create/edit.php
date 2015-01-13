@@ -1,5 +1,9 @@
 <?php include_once 'common/php/_head.php'; ?>
 <?php include_once 'common/php/_header.php'; ?>
+<?php
+	
+?>
+<div class="conteiner">
 <script>
 	window.addEventListener("load", function(){
 		var btn = document.querySelector("#addFileInputButton");
@@ -89,10 +93,11 @@ $results = array(
 			<div id="addPackageForm" class=" col-md-offset-2 col-md-9 "></div>
 		<div class="col-md-offset-11 col-md-1">
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary btn-lg">保存</button>
+				<button type="submit" class="btn btn-primary btn-lg" onclick="">保存</button>
 			</div>
 		</div>
 	</form>
+</div>
 </div>
 <?php include_once 'common/php/_footer.php'; ?>
 <?php include_once 'common/php/_foot.php'; ?>
