@@ -1,5 +1,23 @@
 <?php
 
+function getcards ( $package_id ) {
+	require_once 'tukue_object_functions.php';
+	require_once 'tukue_img_functions.php';
+
+	$img = get_fcards( 1 );
+
+	foreach ( $img as $key => $all_img ) {
+		$cards[] =
+					array(
+						"inedx" => $all_img[ "object_id" ],
+						"front" => "../" . getImaga_path( $all_img[ "f_img_id" ] ),
+						"back" => "../" . getImaga_path( $all_img[ "b_img_id" ] )
+				) ;
+		;
+	}
+	return $cards;
+}
+
 function toJson ( $data ) {
 	/*
 	 * $dataをjson形式にして返す関数 2014/12/13完成済み $data 連想配列
@@ -63,7 +81,11 @@ function getTime () {
 	return date( 'Y-m-d-H-i-s' );
 }
 
-function image_check ( $filedata, $creator_name ) {
+function image_upload ( $filedata ) {
+
+	/*
+	 * 2015/01/13/00:07現在完成済み 関数について : 画像をサーバにアップロードしつつリネームをする。
+	 */
 	require_once 'tukue_img_functions.php';
 
 	$all_count = ( int ) getIncrementNum(); // getincrementNumでAuto_incrementの値を取得
@@ -117,29 +139,31 @@ function image_check ( $filedata, $creator_name ) {
 				} else if ( $imgType == 'imagejpeg' || $imType == 'image/pjpeg' ) {
 					$extension = 'jpg';
 				} else if ( $extension == '' ) {
-					$error .= "許可されていない拡張子です。<br />";
+					return "許可されていない拡張子です。<br />";
 				}
 
 				$checkImage = @getimagesize( $filedata[ $key ][ 'tmp_name' ] );
 
 				if ( $checkImage == FALSE ) {
-					$error .= "画像ファイルをアップローしてください。<br />";
+					return "画像ファイルをアップローしてください。<br />";
 				} else if ( $imgType != $checkImage[ 'mime' ] ) {
-					$error .= "拡張子が異なります。<br />";
+					return "拡張子が異なります。<br />";
 				} else if ( $filedata[ $key ][ 'size' ] > 10240000 ) {
-					$error .= "ファイルサイズが大きすぎます。10MB以下にしてください。<br />";
+					return "ファイルサイズが大きすぎます。10MB以下にしてください。<br />";
 				} else if ( $filedata[ $key ][ 'size' ] == 0 ) {
-					$error .= "ファイルが存在しないか、空のファイルです。<br />";
+					return "ファイルが存在しないか、空のファイルです。<br />";
 				} else if ( $extension != 'gif' && $extension != 'jpg' && $extension != 'png' ) {
-					$error .= "アップロード可能なファイルは git, jpg, png です<br />";
+					return "アップロード可能なファイルは git, jpg, png です<br />";
 				} else {
 					$moveTo = $filePath . '/' . $all_count . '.' . $extension;
 					image_Register( $moveTo );
 					$all_count ++;
 					if ( ! move_uploaded_file( $filedata[ $key ][ 'tmp_name' ], $moveTo ) ) {
-						$error .= "画像のアップロードに失敗しました。<br />";
+						return "画像のアップロードに失敗しました。<br />";
 					}
 				}
+			} else {
+				return "登録に失敗しました。";
 			}
 		} else {
 			/*
@@ -162,19 +186,19 @@ function image_check ( $filedata, $creator_name ) {
 					} else if ( $imgType == 'imagejpeg' || $imgType == 'image/pjpeg' ) {
 						$extension = 'jpg';
 					} else if ( $extension == '' ) {
-						$error .= "許可されていない拡張子です。<br />";
+						return "許可されていない拡張子です。<br />";
 					}
 					$checkImage = @getimagesize( $filedata[ $key ][ 'tmp_name' ][ $keys ] );
 					if ( $checkImage == FALSE ) {
-						$error .= "画像ファイルをアップローしてください。<br />";
+						return "画像ファイルをアップローしてください。<br />";
 					} else if ( $imgType != $checkImage[ 'mime' ] ) {
-						$error .= "拡張子が異なります。<br />";
+						return "拡張子が異なります。<br />";
 					} else if ( $filedata[ $key ][ 'size' ][ $keys ] > 10240000 ) {
-						$error .= "ファイルサイズが大きすぎます。10MB以下にしてください。<br />";
+						return "ファイルサイズが大きすぎます。10MB以下にしてください。<br />";
 					} else if ( $filedata[ $key ][ 'size' ][ $keys ] == 0 ) {
-						$error .= "ファイルが存在しないか、空のファイルです。<br />";
+						return "ファイルが存在しないか、空のファイルです。<br />";
 					} else if ( $extension != 'gif' && $extension != 'jpg' && $extension != 'png' ) {
-						$error .= "アップロード可能なファイルは git, jpg, png です<br />";
+						return "アップロード可能なファイルは git, jpg, png です<br />";
 					} else {
 						$moveTo = $filePath . '/' . $all_count . '.' . $extension;
 						image_Register( $moveTo );
@@ -183,7 +207,7 @@ function image_check ( $filedata, $creator_name ) {
 						);
 						$all_count ++;
 						if ( ! move_uploaded_file( $filedata[ $key ][ 'tmp_name' ][ $keys ], $moveTo ) ) {
-							$error .= "画像のアップロードに失敗しました。<br />";
+							return "画像のアップロードに失敗しました。<br />";
 						}
 					}
 				}
@@ -194,25 +218,27 @@ function image_check ( $filedata, $creator_name ) {
 	return $package_array;
 }
 
-function package_register ( $filedata, $postdata, $creator_id ) {
-
-	/*
-	 * $filePath default = ../tmp time() で、呼び出された時の時刻を$filePathに追加する $filePath '/' time() =
-	 * ../tmp/投稿された時間
-	 */
+function package_register ( $filedata, $postdata, $creator_name ) {
 	require_once 'tukue_img_functions.php';
 	require_once 'tukue_package_functions.php';
 	require_once 'tukue_object_functions.php';
+	require_once 'tukue_creator_functions.php';
 
 	// $creator_name = $_SESSION['creator_name'];
-	$creator_name = 'test';
 
 	$count = 1;
 	$front_count = 0; // front用要素
 	$back_count = 0; // back用要素
 
+	$creator_id = getCreator_id( $creator_name );
+
 	if ( is_array( $filedata ) ) {
-		$package = image_check( $filedata, $creator_name );
+		$package = image_upload( $filedata );
+	} else {
+		return false;
+	}
+	if ( is_string( $package ) ) {
+		return $package;
 	}
 
 	$result = Database_Package_Register( $postdata[ 'package_name' ], $postdata[ 'package_description' ], $creator_id, $package[ 'time' ],
@@ -222,14 +248,12 @@ function package_register ( $filedata, $postdata, $creator_id ) {
 		$package_id = getMaxId();
 		while ( isset( $package[ 'front' . $count ] ) ) {
 			$result = Object_Register( $package_id, $package[ ( 'front' . $count ) ], $package[ ( 'back' . $count ) ] );
-			$count++;
-		}
-		if ( $result ) {
-			return $result;
+			$count ++;
 		}
 	} else {
 		return $result;
 	}
+	return $result;
 }
 
 function text_encoding ( $text ) {
@@ -274,5 +298,19 @@ function directory_delete ( $dir_del ) {
 	} else {
 		echo $dir_del . "は存在しません";
 	}
+}
+
+function search ( $keyword ) {
+	/**
+	 * サーチ画面用のapi
+	 */
+	require_once 'tukue_img_functions.php';
+	require_once 'tukue_package_functions.php';
+	require_once 'tukue_object_functions.php';
+	require_once 'tukue_creator_functions.php';
+
+	$package = package_search( $keyword );
+
+	return $package;
 }
 ?>

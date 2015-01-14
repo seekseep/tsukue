@@ -16,6 +16,21 @@ function register_Creator ( $creator_name, $creator_pass )
     sql( $mysqli, $query );
 }
 
+function creator_toName ( $creator_id ) {
+	require_once 'Sql_Checker.php';
+	require_once 'database.php';
+
+	$mysqli = connect();
+
+	$query = "SELECT creator_name FROM t_creator WHERE creator_id = '" .
+			$creator_id . "'";
+	$result = sql( $mysqli, $query );
+
+	while ( $row = mysqli_fetch_array( $result ) ) {
+		return $row[ 'creator_name' ];
+
+	}
+}
 function updates_Creator ( $creator_id )
 {
     require_once 'Sql_Checker.php';

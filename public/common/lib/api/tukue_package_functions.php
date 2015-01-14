@@ -1,5 +1,23 @@
 <?php
 
+function package_search ( $keyword ) {
+	require_once 'Sql_Checker.php';
+	require_once 'database.php';
+
+	$mysqli = connect();
+	$query = "SELECT * FROM t_package where package_name LIKE '%" . $keyword . "%'";
+	$result = sql( $mysqli, $query );
+
+	$package_id = array();
+
+	while ( $row = $result->fetch_assoc() ) {
+		$package_id[] = $row;
+	}
+	$result->free();
+	mysqli_close( $mysqli );
+
+	return  $package_id;
+}
 function getMaxId () {
 	require_once 'Sql_Checker.php';
 	require_once 'database.php';
