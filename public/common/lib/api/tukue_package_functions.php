@@ -8,15 +8,15 @@ function package_search ( $keyword ) {
 	$query = "SELECT * FROM t_package where package_name LIKE '%" . $keyword . "%'";
 	$result = sql( $mysqli, $query );
 
-	$package_id = array();
+	$package = array();
 
 	while ( $row = $result->fetch_assoc() ) {
-		$package_id[] = $row;
+		$package[] = $row;
 	}
 	$result->free();
 	mysqli_close( $mysqli );
 
-	return  $package_id;
+	return  $package;
 }
 function getMaxId () {
 	require_once 'Sql_Checker.php';
@@ -76,26 +76,6 @@ function showPackages ( $creator_id ) {
 	mysqli_close( $mysqli );
 
 	return $package_id;
-}
-
-function creator_id_check ( $creator_id ) {
-	require_once 'Sql_Checker.php';
-	require_once 'database.php';
-	/*
-	 * ログイン中のcreator_idが存在するかチェック $mysqli = database.phpでオブジェクトを取得済み $creator_id =
-	 * ????関数でログイン中のcreatorのidを取得済み
-	 */
-	// $creator_id = ????関数で呼び出された値を代入
-	$mysqli = connect();
-
-	$query = " SELECT creator_id from t_creator where creator_id = '" . $creator_id . "'";
-	$result = sql( $mysqli, $query );
-
-	while ( $row = mysqli_fetch_assoc( $result ) ) {
-		return ( $row[ 'creator_id' ] );
-	}
-	$result->close();
-	mysqli_close( $mysqli );
 }
 
 function getPackage_all ( $creator_name ) {
@@ -253,5 +233,24 @@ function getPackagedate ( $creator_name ) {
 	mysqli_close( $mysqli );
 
 	return $package_time;
+}
+
+function detail ( $package_id ) {
+	require_once 'Sql_Checker.php';
+	require_once 'database.php';
+
+	$mysqli = connect();
+	$query = "SELECT * FROM t_package where package_id = " . $package_id ;
+	$result = sql( $mysqli, $query );
+
+	$package = array();
+
+	while ( $row = $result->fetch_assoc() ) {
+		$package[] = $row;
+	}
+	$result->free();
+	mysqli_close( $mysqli );
+
+	return  $package;
 }
 ?>

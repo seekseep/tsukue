@@ -4,7 +4,7 @@ function getcards ( $package_id ) {
 	require_once 'tukue_object_functions.php';
 	require_once 'tukue_img_functions.php';
 
-	$img = get_fcards( 1 );
+	$img = get_fcards( $package_id );
 
 	foreach ( $img as $key => $all_img ) {
 		$cards[] =
@@ -298,19 +298,5 @@ function directory_delete ( $dir_del ) {
 	} else {
 		echo $dir_del . "は存在しません";
 	}
-}
-
-function search ( $keyword ) {
-	/**
-	 * サーチ画面用のapi
-	 */
-	require_once 'tukue_img_functions.php';
-	require_once 'tukue_package_functions.php';
-	require_once 'tukue_object_functions.php';
-	require_once 'tukue_creator_functions.php';
-
-	$package = package_search( $keyword );
-
-	return $package;
 }
 ?>
