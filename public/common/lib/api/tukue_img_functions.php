@@ -1,5 +1,4 @@
 <?php
-require_once 'Sql_Checker.php';
 
 function getImaga_path ( $img_id ) {
 	require_once 'Sql_Checker.php';
@@ -7,13 +6,13 @@ function getImaga_path ( $img_id ) {
 
 	$mysqli = connect();
 
-	$query = "SELECT img_path FROM t_img";
+	$query = "SELECT img_path FROM t_img WHERE id = " . $img_id;
 	$result = sql( $mysqli, $query );
 
 	$img_path = array();
 
 	while ( $row = $result->fetch_assoc() ) {
-		$img_path[] = $row;
+		return $row[ "img_path" ];
 	}
 	$result->free();
 	mysqli_close( $mysqli );
@@ -27,7 +26,7 @@ function getPackageImage ( $package_img ) {
 
 	$mysqli = connect();
 
-	$query = "SELECT id FROM t_img WHERE id = " . $package_img;
+	$query = "SELECT img_path FROM t_img WHERE id = " . $package_img;
 	$result = sql( $mysqli, $query );
 
 	$PackageImage = $result->fetch_assoc();

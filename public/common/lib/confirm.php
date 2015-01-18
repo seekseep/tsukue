@@ -1,5 +1,6 @@
 <!--
-* 確認画面
+2015/01/12/23:59現在
+登録処理のfunctionに取得データを投げ返ってきた値( true or false )でecho 内容を変えているPHP
 -->
 
 <!DOCTYPE html>
@@ -10,24 +11,36 @@
 
 <body>
 	<?php
-	session_start();
 
-	require_once 'api/functions.php';
-	require_once 'api/tukue_creator_functions.php';
+	/**
+	 * package_registerの引数について
+	 *
+	 * @param $_FILES :
+	 *        	場の背景、手札の背景など画像オブジェクトが格納されている
+	 * @param $_POST :
+	 *        	パッケージ名などテキストが格納されている
+	 * @param $_SESSION[ '(creator_name'
+	 *        	] : ログイン中のユーザ名が格納されている
+	 */
 
-	$creator_id = getCreator_id( $_SESSION[ 'creator_name' ] );
+	session_start(); // ログイン中のユーザ名を取得するために、セッションを開始する
 
-	$result = package_register( $_FILES, $_POST, $creator_id );
+	require_once 'api/functions.php'; // 登録処理のfunctions.phpの呼び出し
 
-	if ( $result == true ) {
-		echo "登録できました。<br />";
-		echo "<a href='../../create/index.php'>TOPページへ</a>\t";
-		echo "<a href='../../create/dashboard.php'>ダッシュボードへ</a>";
-	} else {
-		echo "登録失敗しました。<br />";
-		echo "再度登録し直して下さい。";
-		echo "<a href='../../create/add.php'>再度登録する</a>";
+	$result = package_register( $_FILES, $_POST, $_SESSION[ 'creator_name' ] ); // パッケージ登録する処理をfunctions.phpのpackage_registerに投げる
+
+	var_dump( $result );
+	if( $result != true ) {
+		echo $result;
 	}
+// 	if ( $result == true ) { // 登録できたら
+// 		echo "登録できました。<br />";
+// 		echo "<a href='../../create/index.php'>TOPページへ</a><br />";
+// 		echo "<a href='../../create/dashboard.php'>ダッシュボードへ</a>";
+// 	} else { // 登録に失敗したら
+// 		echo "登録失敗しました。再度登録し直して下さい。<br />";
+// 		echo "<a href='../../create/add.php'>再度登録する</a>";
+// 	}
 	?>
 
 </body>
