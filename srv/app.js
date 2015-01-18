@@ -1,150 +1,140 @@
-	var app = require('http').createServer(handler)
+var app = require('http').createServer(handler)
 var io = require('socket.io')(app);
 
 // ***********************************************************************
 
 function handler (req, res) {
-    res.writeHead(200);
-    res.end('this is socket server');
+	res.writeHead(200);
+	res.end('<h1><a href="http://tsukue.asia">TSUKUE</a></h1>');
 }
 
 // ***********************************************************************
 
 var Rooms = {};
-Rooms.index = 0;
+Rooms.index = 1;
 
 // ***********************************************************************
 
 io.on('connection', function (socket) {
+	socket.tsukue = {};
+	socket.on('makeRoom', function(param){
+		console.log("============================== MAKEROOM ==============================");
+		// ルーム情報を保持する
+		var room = {};
+		// プレイヤー情報を管理する。
+		room.players = [];
+		// ルームID を入れる
+		room.id = Rooms.index++;
+		// パッケージ情報を格納
+		room.package = param.room.package; // パッケージ情報を格納
+		// プレイヤIDの開始番号を指定
+		room.playerIndex = 1;
+		// フィールド情報を格納
+		room.fields = [];
+		// 重なりの管理
+		room.zList = [];
 
-    socket.on('makeRoom', function(data){
-        console.log('makeRoom', data);
+		// プレイヤー情報を作成
+		var player = {};
+		// id をルームから取得
+		player.id = room.playerIndex++;
+		// 名前をパラメータから取得
+		player.name = param.player.name;
+		// ルームにプレイヤー情報を格納
+		room.players[0] = {id:0,name:'table'};
+		room.players[player.id] = player;
 
+		// カードを格納する配列を作成
+        room.cards = [];
 
-        var room = {};
-        room.player = {};
-        room.id = Rooms.index++;
-        room.playerIndex = 1;
-        room.list = {};
-        Rooms[room.id] = room;
+		// カードの枚数を取得
+        var size = room.package.size;
+		// カードリストを初期化
+        for(var idx = 0; idx < size; idx++){
+			var card = {
+				id : idx,							// カードを一意に特定するID(int)
+                field : 0,                          // 表示する場所(int)
+				isFront : true,						// 表裏(bool)
+				isHold: false,						// 操作中(bool)
+				isSelected: false,					// 選択中(bool)
+				width : room.package.card.width,	// 幅(px)
+				height : room.package.card.height,	// 高さ(px)
+				x : room.package.table.width / 2,	// X座標(px)
+				y : room.package.table.height / 2,	// Y座標(px)
+				z : room.zIndex++,                  // Z-INDEX(int)
+				rotate: {
+					x : 0,                          // X軸回転(deg)
+					y : 0,                          // Y軸回転(deg)
+					z : 0                           // Z軸回転(deg)
+				},
+				tmp : {}
+			};
+			room.cards[idx] = card;
+		};
 
-        var player = {};
-        player.id = room.playerIndex++;
-        player.name = data.player.name;
-        player.socket = socket;
-//        console.log('player', player);
-
-        room.player[player.id] = player;
-
-        room.list[0] = [];
-        room.list[player.id] = [];
-
-        var num = data.room.card.num;
-        for(var idx = 0; idx < num; idx++){
-            room.list[0].push({
-                id : idx
-            });
-        }
-
-        var players = [];
-        for(var id in room.player){
-            players[id] = {
-                'name' : room.player[id].name
-            };
-        }
-
+        // 返答の作成
         var res = {
-            'room' : {
-                'id' : room.id,
-                'list' : room.list,
-                'player' : players
-            },
-            'player' : {
-                'id' : player.id,
-                'name' : player.name
-            }
+            'room' : room,
+            'player' : player
         };
 
-        socket.emit('makeRoomRes', res); // makeRoom のレスポンス
+        // room を保存
+   		Rooms[room.id] = room;
+		console.log(Rooms);
+
+		socket.tsukue.player = player;
         socket.join(room.id); // broadcast のグループを決める
+        socket.emit('makeRoomRes', res); // makeRoom のレスポンス
+		console.log("============================== /MAKEROOM =============================");
     });
 
-    socket.on('joinRoom', function(data){
+	socket.on('roomExist', function(param){
+		var room = Rooms[param.room.id];
 
-        var room = Rooms[data.room.id];
+		var res = {
+			room : room
+		}
 
-        if(!room){
-             socket.emit('joinRoomRes', {error:"The Room Not Found"});
-            return false;
-        }
+		socket.emit('roomExistRes', res);
+	});
 
-        var player = {};
-        player.id = room.playerIndex++;
-        player.name = data.player.name;
-        player.socket = socket;
+    socket.on('joinRoom', function(param){
+		console.log("============================== JOINROOM ==============================");
+		console.log(param);
+		console.log("----------------------------------------------------------------------");
+		console.log('ROOM-ID : ', param.room.id);
+        var room = Rooms[param.room.id];
 
-        room.player[player.id] = player;
-        room.list[player.id] = [];
+		var player = {
+			id : room.playerIndex++,
+			name : param.player.name
+		};
 
-        var players = [];
-        for(var id in room.player){
-            players[id] = {
-                'name' : room.player[id].name
-            };
-        }
+		console.log(room.player);
+		room.players[player.id] = player;
+		socket.tsukue.player = player;
 
-        var res = {
-            'room' :{
-                'id' : room.id,
-                'list' : room.list,
-                'player' : players
-            },
-            'player':{
-                'id' : player.id,
-                'name' : player.name
-            }
-        };
+		var res = {
+			'room' : room,
+			'player' : player
+		};
 
-        socket.join(room.id); // room に追加
-        socket.emit('joinRoomRes', res); // 自分の情報を追加
-
-        var broadcastData = {
-            'room' : {
-                'id' : room.id,
-                'list' : room.list,
-                'player': players
-            }
-        };
-		console.log('ROOM-ID IS ', room.id);
-        socket.broadcast.to(room.id).emit('joinedPlayer', broadcastData); // 追加したことを全体に報告
+		Rooms[room.id] = room;
+		socket.join(room.id); // broadcast のグループを決める
+		socket.emit('joinRoomRes', res); // makeRoom のレスポンス
+		socket.broadcast.to(room.id).emit('updatePlayer', res);
+		console.log("============================== /JOINROOM =============================");
     });
 
     socket.on('updateCardApply', function(data){
-
-        var room = Rooms[data.room.id];
-        var player = data.player;
-        var card = data.card;
-
-        room.list[player.id][card.id] = card;
-
-        socket.broadcast.to(room.id).emit('updateCard', data);
-
-    });
-
-    socket.on('moveCardApply', function(data){
-		console.log("MOVE-CARD-APPLY");
-        var room = Rooms[data.room.id];
-	    var roomId = room.id;
-        var fromPlayer = data.player.from;
-        var toPlayer = data.player.to;
-        var card = data.card;
-
-        room.list[fromPlayer.id][card.id] = undefined;
-        room.list[toPlayer.id][card.id] = card;
-
-		console.log(socket.rooms);
-
-		io.to(room.id).emit('moveCard', data);
+		console.log('=========================================================');
+		console.log(socket.id);
+		console.log('==================== updateCardApply ====================');
+		var room = Rooms[data.room.id];
+		var card = data.card;
+		room.cards[card.id] = card;
+		socket.broadcast.to(room.id).emit('updateCard', data);
+		console.log('==================== /updateCardApply ===================');
     });
 });
 
