@@ -1,8 +1,7 @@
 <?php
-	require_once 'api/tukue_package_functions.php';
-	require_once 'api/tukue_img_functions.php';
-	require_once 'api/tukue_creator_functions.php';
-	require_once 'api/tukue_object_functions.php';
-	require_once 'api/functions.php';
+require_once 'api/toJson_package.php';
 
+if ( isset( $_GET[ "package_id" ] ) ) {
+toJson_packageData( $_GET[ "package_id" ] );
+}
 ?>

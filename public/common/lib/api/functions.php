@@ -7,13 +7,18 @@ function getcards ( $package_id ) {
 	$img = get_fcards( $package_id );
 
 	foreach ( $img as $key => $all_img ) {
-		$cards[] =
-					array(
-						"inedx" => $all_img[ "object_id" ],
-						"front" => "../" . getImaga_path( $all_img[ "f_img_id" ] ),
-						"back" => "../" . getImaga_path( $all_img[ "b_img_id" ] )
-				) ;
-		;
+		if ( $all_img[ "b_img_id" ] != 0 ) {
+			$cards[] = array(
+					"inedx" => $all_img[ "object_id" ],
+					"front" => "../" . getImaga_path( $all_img[ "f_img_id" ] ),
+					"back" => "../" . getImaga_path( $all_img[ "b_img_id" ] ),
+			);
+		} else if ( $all_img[ "b_img_id" ] == 0 ) {
+			$cards[] = array(
+					"inedx" => $all_img[ "object_id" ],
+					"front" => "../" . getImaga_path( $all_img[ "f_img_id" ] ),
+			);
+		}
 	}
 	return $cards;
 }
@@ -247,8 +252,13 @@ function package_register ( $filedata, $postdata, $creator_name ) {
 	if ( $result ) {
 		$package_id = getMaxId();
 		while ( isset( $package[ 'front' . $count ] ) ) {
-			$result = Object_Register( $package_id, $package[ ( 'front' . $count ) ], $package[ ( 'back' . $count ) ] );
-			$count ++;
+			if ( isset( $package[ ( 'front' . $count ) ] ) && isset( $package[ ( 'back' . $count ) ] ) ) {
+				$result = Object_Register( $package_id, $package[ ( 'front' . $count ) ], $package[ ( 'back' . $count ) ] );
+				$count ++;
+			} else if ( isset( $package[ ( 'front' . $count ) ] ) && ! isset( $package[ ( 'back' . $count ) ] ) ) {
+				$result = Object_Register( $package_id, $package[ ( 'front' . $count ) ], null );
+				$count ++;
+			}
 		}
 	} else {
 		return $result;
@@ -256,37 +266,36 @@ function package_register ( $filedata, $postdata, $creator_name ) {
 	return $result;
 }
 
-function text_encoding ( $text ) {
+// function text_encoding ( $text ) {
 
-	/*
-	 * windwosと他では文字のエンコードが違うので、パッケージの投稿時に変換するための関数です。 @param $text windowsで入力されたり、逆に表示したりする テキスト
-	 * 2014/12/13完成済み
-	 */
-	$encode = "ASCII, JIS, UTF-8, CP932, SJIS-win";
+// /*
+// * windwosと他では文字のエンコードが違うので、パッケージの投稿時に変換するための関数です。 @param $text windowsで入力されたり、逆に表示したりする テキスト
+// * 2014/12/13完成済み
+// */
+// $encode = "ASCII, JIS, UTF-8, CP932, SJIS-win";
 
-	switch ( mb_detect_encoding( $text, "UTF-8,ASCII, SJIS, JIS-win" ) ) {
-		case 'ASCII':
-			mb_language( "Japanese" );
-			return mb_convert_encoding( $text, "UTF-8", $encode );
-			break;
-		case 'SJIS':
-			mb_language( "Japanese" );
-			return mb_convert_encoding( $text, 'utf8', $encode );
-			break;
-		case 'CP932':
-			mb_language( "Japanese" );
-			return mb_convert_encoding( $text, 'utf8', $encode );
-			break;
-		case 'UTF-8':
-			mb_language( "Japanese" );
-			return mb_convert_encoding( $text, 'CP932', $encode );
-			break;
-		default:
-			return $text;
-			break;
-	}
-}
-
+// switch ( mb_detect_encoding( $text, "UTF-8,ASCII, SJIS, JIS-win" ) ) {
+// case 'ASCII':
+// mb_language( "Japanese" );
+// return mb_convert_encoding( $text, "UTF-8", $encode );
+// break;
+// case 'SJIS':
+// mb_language( "Japanese" );
+// return mb_convert_encoding( $text, 'utf8', $encode );
+// break;
+// case 'CP932':
+// mb_language( "Japanese" );
+// return mb_convert_encoding( $text, 'utf8', $encode );
+// break;
+// case 'UTF-8':
+// mb_language( "Japanese" );
+// return mb_convert_encoding( $text, 'CP932', $encode );
+// break;
+// default:
+// return $text;
+// break;
+// }
+// }
 function directory_delete ( $dir_del ) {
 
 	/*

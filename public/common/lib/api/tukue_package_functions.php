@@ -10,14 +10,16 @@ function package_search ( $keyword ) {
 
 	$package = array();
 
-	while ( $row = $result->fetch_assoc() ) {
+	while ( $row = $result -> fetch_assoc() ) {
 		$package[] = $row;
 	}
-	$result->free();
-	mysqli_close( $mysqli );
+	$result -> free();
 
-	return  $package;
+	$mysqli -> close();
+
+	return $package;
 }
+
 function getMaxId () {
 	require_once 'Sql_Checker.php';
 	require_once 'database.php';
@@ -26,11 +28,11 @@ function getMaxId () {
 	$query = "SELECT MAX(package_id) FROM t_package";
 	$result = sql( $mysqli, $query );
 
-	$row = $result->fetch_assoc();
+	$row = $result -> fetch_assoc();
 	$package_id = $row[ 'MAX(package_id)' ];
 
-	$result->free();
-	mysqli_close( $mysqli );
+	$result -> free();
+	$mysqli -> close();
 
 	return $package_id;
 }
@@ -45,11 +47,11 @@ function getPackage_id () {
 
 	$package_id = array();
 
-	while ( $row = $result->fetch_assoc() ) {
+	while ( $row = $result -> fetch_assoc() ) {
 		$package_id[] = $row;
 	}
-	$result->free();
-	mysqli_close( $mysqli );
+	$result -> free();
+	$mysqli -> close();
 
 	return $package_id;
 }
@@ -69,11 +71,11 @@ function showPackages ( $creator_id ) {
 
 	$package_id = array();
 
-	while ( $row = $result->fetch_assoc() ) {
+	while ( $row = $result -> fetch_assoc() ) {
 		$package_id[] = $row;
 	}
-	$result->free();
-	mysqli_close( $mysqli );
+	$result -> free();
+	$mysqli -> close();
 
 	return $package_id;
 }
@@ -93,12 +95,12 @@ function getPackage_all ( $creator_name ) {
 	$result = sql( $mysqli, $query );
 
 	$AllData = array();
-	while ( $row = $result->fetch_assoc() ) {
+	while ( $row = $result -> fetch_assoc() ) {
 		$AllData[] = $row;
 	}
 
-	$result->free();
-	mysqli_close( $mysqli );
+	$result -> free();
+	$mysqli -> close();
 
 	return $AllData;
 }
@@ -119,11 +121,11 @@ function getPackageName ( $creator_id ) {
 
 	$NameData = array();
 
-	while ( $row = $result->fetch_assoc() ) {
+	while ( $row = $result -> fetch_assoc() ) {
 		$NameData[] = $row[ 'package_name' ];
 	}
-	$result->free();
-	mysqli_close( $mysqli );
+	$result -> free();
+	$mysqli -> close();
 
 	return $NameData;
 }
@@ -148,6 +150,8 @@ function Database_Package_Register ( $package_name, $package_description, $creat
 	$result = sql( $mysqli, $query );
 
 	return $result;
+
+	$result -> free();
 }
 
 function Package_Updates ( $package_id, $package_name ) {
@@ -161,6 +165,8 @@ function Package_Updates ( $package_id, $package_name ) {
 	$mysqli = connect();
 	$query = "UPDATE t_package set package_name = '" . $package_name . "' WHERE package_id = '" . $package_id . "'";
 	sql( $mysqli, $query );
+
+	$mysqli -> close();
 }
 
 function get_packageName ( $creator_id ) {
@@ -179,11 +185,11 @@ function get_packageName ( $creator_id ) {
 
 	$packageName_Data = array();
 
-	while ( $row = $result->fetch_assoc() ) {
+	while ( $row = $result -> fetch_assoc() ) {
 		$packageName_Data[] = $row[ 'package_name' ];
 	}
-	$result->free();
-	mysqli_close( $mysqli );
+	$result -> free();
+	$mysqli -> close();
 
 	return $packageName_Data;
 }
@@ -206,6 +212,7 @@ function Package_Delete ( $package_delete_flag, $package_id ) {
 		// フラグがない
 		return false;
 	}
+	$mysqli -> close();
 }
 
 function getPackagedate ( $creator_name ) {
@@ -225,12 +232,12 @@ function getPackagedate ( $creator_name ) {
 
 	$package_time = array();
 
-	while ( $row = $result->fetch_assoc() ) {
+	while ( $row = $result -> fetch_assoc() ) {
 		$package_time[] = $row;
 	}
 
-	$result->free();
-	mysqli_close( $mysqli );
+	$result -> free();
+	$mysqli -> close();
 
 	return $package_time;
 }
@@ -240,17 +247,17 @@ function detail ( $package_id ) {
 	require_once 'database.php';
 
 	$mysqli = connect();
-	$query = "SELECT * FROM t_package where package_id = " . $package_id ;
+	$query = "SELECT * FROM t_package where package_id = " . $package_id;
 	$result = sql( $mysqli, $query );
 
 	$package = array();
 
-	while ( $row = $result->fetch_assoc() ) {
+	while ( $row = $result -> fetch_assoc() ) {
 		$package[] = $row;
 	}
-	$result->free();
-	mysqli_close( $mysqli );
+	$result -> free();
+	$mysqli -> close();
 
-	return  $package;
+	return $package;
 }
 ?>

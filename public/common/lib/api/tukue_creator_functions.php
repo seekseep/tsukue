@@ -14,6 +14,8 @@ function register_Creator ( $creator_name, $creator_pass )
     $query = "INSERT INTO t_creator(creator_id, creator_name, creator_pass ) VALUES(null, '" .
              $creator_name . "', '" . $creator_pass . "')";
     sql( $mysqli, $query );
+
+    $mysqli -> close();
 }
 
 function creator_toName ( $creator_id ) {
@@ -28,8 +30,9 @@ function creator_toName ( $creator_id ) {
 
 	while ( $row = mysqli_fetch_array( $result ) ) {
 		return $row[ 'creator_name' ];
-
 	}
+	$result -> free();
+	$mysqli -> close();
 }
 function updates_Creator ( $creator_id )
 {
@@ -43,6 +46,8 @@ function updates_Creator ( $creator_id )
     $query = "UPDATE t_creator set creator_name = '" . $creator_name .
              "' where creator_id = '" . $creator_id . "'";
     sql( $mysqli, $query );
+
+    $mysqli -> close();
 }
 
 function get_CreatorName ( $creator_name )
@@ -63,6 +68,9 @@ function get_CreatorName ( $creator_name )
     while ( $row = mysqli_fetch_array( $result ) ) {
         return $row[ 'creator_name' ];
     }
+    $result -> free();
+
+    $mysqli -> close();
 }
 
 function get_CreatorPass ( $creator_name )
@@ -83,6 +91,10 @@ function get_CreatorPass ( $creator_name )
     while ( $row = $result->fetch_assoc() ) {
         $creator_pass[] = $row;
     }
+    $result -> free();
+
+    $mysqli -> close();
+
     return $creator_pass[ 0 ][ 'creator_pass' ];
 }
 
@@ -104,6 +116,9 @@ function getCreator_id ( $creator_name )
     while ( $row = mysqli_fetch_array( $result ) ) {
         return $row[ 'creator_id' ];
     }
+    $result -> free();
+
+    $mysqli -> close();
 }
 
 function Creator_Delete ( $creator_delete_flag, $creator_id )
@@ -121,5 +136,6 @@ function Creator_Delete ( $creator_delete_flag, $creator_id )
         $query = "DELETE FROM t_creator WHERE creator_id = '" . $creator_id . "'";
         sql( $query );
     }
+
 }
 ?>

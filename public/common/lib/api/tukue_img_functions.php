@@ -11,11 +11,12 @@ function getImaga_path ( $img_id ) {
 
 	$img_path = array();
 
-	while ( $row = $result->fetch_assoc() ) {
+	while ( $row = $result -> fetch_assoc() ) {
 		return $row[ "img_path" ];
 	}
-	$result->free();
-	mysqli_close( $mysqli );
+	$result -> free();
+
+	$mysqli -> close();
 
 	return $img_path;
 }
@@ -29,10 +30,10 @@ function getPackageImage ( $package_img ) {
 	$query = "SELECT img_path FROM t_img WHERE id = " . $package_img;
 	$result = sql( $mysqli, $query );
 
-	$PackageImage = $result->fetch_assoc();
+	$PackageImage = $result -> fetch_assoc();
 
-	$result->free();
-	mysqli_close( $mysqli );
+	$result -> free();
+	$mysqli -> close();
 
 	return $PackageImage;
 }
@@ -48,11 +49,12 @@ function getImage_id () {
 
 	$id = array();
 
-	while ( $row = $result->fetch_assoc() ) {
+	while ( $row = $result -> fetch_assoc() ) {
 		$id[] = $row;
 	}
-	$result->free();
-	mysqli_close( $mysqli );
+
+	$result -> free();
+	$mysqli -> close();
 
 	return $id;
 }
@@ -66,12 +68,12 @@ function getIncrementNum () {
 	$query = "SHOW TABLE STATUS LIKE 't_img'";
 	$result = sql( $mysqli, $query );
 
-	$row = $result->fetch_object();
+	$row = $result -> fetch_object();
 
 	$next_id = $row->Auto_increment;
 
-	$result->free();
-	mysqli_close( $mysqli );
+	$result -> free();
+	$mysqli -> close();
 
 	return $next_id;
 }
@@ -90,6 +92,7 @@ function Img_Path_Update ( $mysqli, $img_id, $img_path_update, $img_path_update_
 		$query = "UPDATE t_image set img_path = '" . $img_path_update . "' where img_id = " . $img_id . "";
 		sql( $mysqli, $query );
 	}
+	$mysqli -> close();
 }
 
 function Img_Front_Flag_Update ( $mysqli, $img_id, $img_front_flag_update, $img_front_flag_update_flag ) {
@@ -107,6 +110,7 @@ function Img_Front_Flag_Update ( $mysqli, $img_id, $img_front_flag_update, $img_
 		$query = "UPDATE t_image set img_front_flag = " . $img_front_flag_update . " where img_id = " . $img_id . "";
 		sql( $mysqli, $query );
 	}
+	$mysqli -> close();
 }
 
 function image_Register ( $img_path ) {
@@ -121,7 +125,7 @@ function image_Register ( $img_path ) {
 	$query = "INSERT INTO t_img(id, img_path) VALUES( null, '" . $img_path . "')";
 	sql( $mysqli, $query );
 
-	mysqli_close( $mysqli );
+	$mysqli -> close();
 }
 
 function Img_Delete ( $mysqli, $img_id, $img_delete_flag ) {
@@ -138,5 +142,6 @@ function Img_Delete ( $mysqli, $img_id, $img_delete_flag ) {
 		$query = "DELETE FROM t_image WHERE img_id = " . $img_id . "";
 		sql( $mysqli, $query );
 	}
+	$mysqli -> close();
 }
 ?>
